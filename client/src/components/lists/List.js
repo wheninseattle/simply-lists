@@ -1,17 +1,16 @@
-import React, { useContext } from "react";
+import React, { Fragment } from "react";
 // import ListContext from "../../context/list/listContext";
-import { link } from "react-router-dom";
+// import { link } from "react-router-dom";
 
 const List = (props) => {
-  
-  // const listContext = useContext(ListContext);
-  
-  // const listContext = useContext(ListContext);
- 
 
   return (
-  <p>Testing</p>
-    );
+    <Fragment>
+      <h1>{props.listTitle}</h1>
+      <h3>{props.listAuthor}</h3>
+
+    </Fragment>
+  );
 };
 
 export default List;
