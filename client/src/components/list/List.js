@@ -6,15 +6,15 @@ import ListItem from "../listItems/ListItem";
 const List = (props) => {
   const { listTitle, listAuthor, listItems } = props;
   return (
-    <Fragment>
+    <div className="all-center">
       <h1>{listTitle}</h1>
       <h3>{listAuthor}</h3>
       <ul>
         {listItems.map((item) => (
-          <li>{item.itemName}</li>
+          <ListItem item={item} key={item.itemID.toString()} />
         ))}
       </ul>
-    </Fragment>
+    </div>
   );
 };
 

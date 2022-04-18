@@ -4,6 +4,7 @@
 :root {
   --primary-color: #3580dc;
   --dark-color: #323232;
+  --slate-gray: #708090;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
@@ -20,7 +21,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
+  background-color: #DAE0E6;
   color: #333;
 }
 
@@ -60,6 +61,18 @@ img {
   font-size: 3rem;
   line-height: 1.2;
   margin-bottom: 1rem;
+}
+
+.small {
+  margin: 0rem;
+  padding: 0;
+}
+
+.item-title{
+  font-size: .75rem;
+  padding: 0px;
+  margin: 0px;
+
 }
 
 .lead {
@@ -112,9 +125,33 @@ img {
 
 /* Cards */
 .card {
-  padding: 1rem;
-  border: #ccc 1px dotted;
+  /* padding: 1rem; */
+  /* border: #979797 1px solid; */
+  border: var(--slate-gray) 1px solid;
   margin: 0.7rem 0;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px var(--slate-gray);
+  height:60px;
+  text-align: justify;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--light-color);
+}
+/* .card.card-expanded{
+  height: fit-content;
+} */
+
+.item-info{
+  width: 90%;
+  overflow: hidden;
+  text-overflow: clip;
+}
+.context{
+ text-overflow:clip;
+ /* display: inline-block; */
+ overflow: scroll;
+ width: 80%;
+ font-size: .75rem;
 }
 
 /* List */
@@ -225,6 +262,24 @@ img {
   font-size: 0.8rem;
   padding: 0.3rem 1rem;
   margin-right: 0.2rem;
+}
+
+.btn-drag {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid var(--slate-gray); */
+  justify-content: center;
+  background-color:var(--slate-gray) ;
+  width: 1rem;
+  padding: .25rem;
+}
+
+.dot{
+  background-color: var(--light-color);
+  margin:.25rem 0px .25rem 0px; 
+  width: .25rem;
+  height: .25rem;
+  border-radius: 50% 50%;
 }
 
 .badge {

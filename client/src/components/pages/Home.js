@@ -16,13 +16,13 @@ const home = (props) => {
   const listItems = sampleData[0].items;
 
   return (
-    <Fragment>
+    <div className="container">
       <List
-        listTitle  = {listTitle}
-        listAuthor = {listAuthor}
-        listItems  = {listItems}
+        listTitle={listTitle}
+        listAuthor={listAuthor}
+        listItems={listItems}
       />
-    </Fragment>
+    </div>
   );
 };
 

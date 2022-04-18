@@ -16,7 +16,7 @@ const listData = [
         itemID: 2,
         itemName: "Discovery Park",
         itemDescription:
-          "Also known as 'Disco' Park. A beautiful place for a picnic or a tail run",
+          "Also known as 'Disco' Park. A beautiful place for a picnic or a tail run! Also known as 'Disco' Park. A beautiful place for a picnic or a tail run! Also known as 'Disco' Park. A beautiful place for a picnic or a tail run! Also known as 'Disco' Park. A beautiful place for a picnic or a tail run! Also known as 'Disco' Park. A beautiful place for a picnic or a tail run! Also known as 'Disco' Park. A beautiful place for a picnic or a tail run! ",
         itemAuthor: "wheninseattle",
       },
       {
