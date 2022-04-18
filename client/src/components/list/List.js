@@ -2,6 +2,7 @@ import React, { createElement, Fragment } from "react";
 // import ListContext from "../../context/list/listContext";
 // import { link } from "react-router-dom";
 import ListItem from "../listItems/ListItem";
+import AddItem from "../listItems/AddItem";
 
 const List = (props) => {
   const { listTitle, listAuthor, listItems } = props;
@@ -14,6 +15,7 @@ const List = (props) => {
           <ListItem item={item} key={item.itemID.toString()} />
         ))}
       </ul>
+      <AddItem/>
     </div>
   );
 };

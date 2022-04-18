@@ -42,6 +42,12 @@ img {
   width: 100%;
 }
 
+hr {
+  color: var(--light-color);
+  border-style: inset;
+  border-width: 1px;
+  margin: .5rem auto;
+}
 /* Utilities */
 .container {
   max-width: 1100px;
@@ -72,6 +78,7 @@ img {
   font-size: .75rem;
   padding: 0px;
   margin: 0px;
+  margin-right: 5px;
 
 }
 
@@ -125,8 +132,6 @@ img {
 
 /* Cards */
 .card {
-  /* padding: 1rem; */
-  /* border: #979797 1px solid; */
   border: var(--slate-gray) 1px solid;
   margin: 0.7rem 0;
   border-radius: 5px;
@@ -135,8 +140,23 @@ img {
   text-align: justify;
   display: flex;
   flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
   background-color: var(--light-color);
 }
+
+.add-card{
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content:center;
+  align-items: center;
+}
+
+.add-form{
+  
+}
+
 /* .card.card-expanded{
   height: fit-content;
 } */
@@ -150,8 +170,20 @@ img {
  text-overflow:clip;
  /* display: inline-block; */
  overflow: scroll;
- width: 80%;
+ /* width: 80%; */
  font-size: .75rem;
+}
+
+#item-vote{
+  background-color: var(--slate-gray);
+  width: 1.5rem;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center ;
+  justify-content: center;
+  color: var(--light-color);
+  font-size: .75rem;
 }
 
 /* List */
@@ -214,7 +246,23 @@ img {
 .my-3 {
   margin: 3rem 0;
 }
+/* Flex */
 
+.flex-v {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-h {
+  display: flex;
+  flex-direction: row;
+}
+
+.self-right {
+  align-self: flex-end;
+}
 /* Grid */
 .grid-2 {
   display: grid;
@@ -272,6 +320,38 @@ img {
   background-color:var(--slate-gray) ;
   width: 1rem;
   padding: .25rem;
+}
+
+.btn-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  width: 4rem;
+  border: 1px solid var(--light-color);
+  color: var(--light-color);
+  background-color: transparent;
+  border-radius: 50% 50%;
+  font-size: 5rem;
+  margin: 5px;
+  
+}
+
+.btn-icon{
+  background-color: transparent;
+  border: none;
+  color:var(--slate-gray) ;
+  padding: 0px;
+  margin: 0px;
+  font-size: .8rem;
+}
+.btn-icon-vote{
+  background-color: transparent;
+  border: none;
+  color:var(--light-color) ;
+  padding: 0px;
+  margin: auto;
+  font-size: .75rem;
 }
 
 .dot{
