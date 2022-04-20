@@ -11,8 +11,8 @@ import {
 const ListItem = (props) => {
   const { itemName, itemDescription } = props.item;
   return (
-    <div className="card card-expanded">
-      <div className="btn btn-drag btn-secondary">
+    <li className="card card-expanded" id={props.item.id}>
+      <div className="btn btn-drag">
         <div className="dot"></div>
         <div className="dot"></div>
         <div className="dot"></div>
@@ -44,9 +44,9 @@ const ListItem = (props) => {
         <button className="btn btn-icon-vote">
           <FontAwesomeIcon icon={faArrowAltCircleDown} />
         </button>
-        <i class="fa-regular fa-down"></i>
+        <i className="fa-regular fa-down"></i>
       </div>
-    </div>
+    </li>
   );
 };
 

@@ -8,6 +8,7 @@
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
+  --card-radius: 2.5px;
 }
 
 * {
@@ -134,7 +135,7 @@ hr {
 .card {
   border: var(--slate-gray) 1px solid;
   margin: 0.7rem 0;
-  border-radius: 5px;
+  border-radius: var(--card-radius);
   box-shadow: 2px 2px 5px var(--slate-gray);
   height:60px;
   text-align: justify;
@@ -146,15 +147,24 @@ hr {
 }
 
 .add-card{
-  display:flex;
+  display:none;
   flex-direction: column;
   width: 100%;
   justify-content:center;
   align-items: center;
+  height: fit-content;
 }
 
 .add-form{
+  width: 90%;
   
+  
+}
+.input{
+  width:90%;
+  border-radius: 2px;
+}
+.input-singleline{
 }
 
 /* .card.card-expanded{
@@ -289,6 +299,7 @@ hr {
   padding: 0.4rem 1.3rem;
   font-size: 1rem;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
@@ -316,6 +327,9 @@ hr {
   display: flex;
   flex-direction: column;
   /* border: 1px solid var(--slate-gray); */
+  border-radius: var(--card-radius);
+  border-top-right-radius: var(--card-radius);
+  border-bottom-right-radius: var(--card-radius);
   justify-content: center;
   background-color:var(--slate-gray) ;
   width: 1rem;
@@ -323,18 +337,27 @@ hr {
 }
 
 .btn-add {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
+  /* display: block; */
+  align-self: center;
+  justify-self: center;
+  align-items: center ;
+  align-content: center;
+  line-height: 4rem;
   height: 4rem;
   width: 4rem;
-  border: 1px solid var(--light-color);
-  color: var(--light-color);
+  border: 1px solid var(--dark-color);
+  color: var(--dark-color);
   background-color: transparent;
   border-radius: 50% 50%;
   font-size: 5rem;
-  margin: 5px;
-  
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.btn-add-active {
+  transform: rotate(45deg);
 }
 
 .btn-icon{
