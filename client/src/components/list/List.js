@@ -1,21 +1,34 @@
-import React, { createElement, Fragment } from "react";
-// import ListContext from "../../context/list/listContext";
-// import { link } from "react-router-dom";
+import React, { createElement, Fragment, useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 import ListItem from "../listItems/ListItem";
-import AddItem from "../listItems/AddItem";
 
+//
 const List = (props) => {
-  const { listTitle, listAuthor, listItems } = props;
+  //Destructure Props
+  // const { listTitle, listAuthor, listItems } = props;
+  const { listName, listAuthor, items } = props.list;
+
+  // Add List Item
+  // const addItem = (item) => {
+  //   const newItem = {
+  //     id: uuid(),
+  //     itemName: item.itemName,
+  //     itemDescription: item.itemDescription,
+  //     itemAuthor: item.itemAuthor,
+  //   };
+  //   setItemState([...itemState.listItems, newItem]);
+  //   // listItems = itemState.listItems;
+  // };
+
   return (
     <div className="all-center">
-      <h1>{listTitle}</h1>
+      <h1>{listName}</h1>
       <h3>{listAuthor}</h3>
-      <ul>
-        {listItems.map((item) => (
-          <ListItem item={item} key={item.itemID.toString()} />
-        ))}
-      </ul>
-      <AddItem/>
+      {items.map(item => {
+        return (
+            <ListItem key={item.itemId} item={item}/>
+        );
+      })}
     </div>
   );
 };

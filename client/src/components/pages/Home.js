@@ -1,29 +1,38 @@
-import { React, Fragment } from "react";
+import { React, Fragment, useState, useEffect } from "react";
 import List from "../list/List";
+import Lists from "../list/Lists";
+import listData from "../../sampleData/listData";
 
-const home = (props) => {
-  // const sampleList = [
-  //   "Baked Salmon",
-  //   "Dan Dan Noodles",
-  //   "Amatriciana",
-  //   "Stir Fry",
-  //   "Grain Bowls",
-  // ];
-  const sampleData = props.sampleData;
-  console.log(sampleData);
-  const listTitle = sampleData[0].listName;
-  const listAuthor = sampleData[0].listAuthor;
-  const listItems = sampleData[0].items;
+const Home = (props) => {
+  //Load sample data into state
+  const sampleData = listData.lists;
 
-  return (
-    <div className="container">
-      <List
-        listTitle={listTitle}
-        listAuthor={listAuthor}
-        listItems={listItems}
-      />
-    </div>
-  );
+  // Initialize App Level State
+  const [state, setState] = useState({
+    lists: [],
+    // listItems: [],
+    // current: {
+    //   listId: "",
+    //   listAuthor: "",
+    //   listName: "",
+    //   listItems: [],
+    //   currentItem: "",
+    //   currentItemName: "",
+    //   currentItemDescription: "",
+    // },
+  });
+
+  useEffect(() => {
+    sampleData[0] && setState({ ...state, lists: sampleData });
+  }, []);
+
+  if (state.lists.length) {
+    return (
+      <div className="container">
+        <Lists lists={state.lists} />
+      </div>
+    );
+  }
 };
 
-export default home;
+export default Home;
