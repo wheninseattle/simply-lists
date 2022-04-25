@@ -1,12 +1,14 @@
 import React, { createElement, Fragment, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import ListItem from "../listItems/ListItem";
+import AddItem from "../listItems/AddItem";
 
 //
 const List = (props) => {
   //Destructure Props
   // const { listTitle, listAuthor, listItems } = props;
   const { listName, listAuthor, items } = props.list;
+  // const { setState } = props;
 
   // Add List Item
   // const addItem = (item) => {
@@ -24,11 +26,12 @@ const List = (props) => {
     <div className="all-center">
       <h1>{listName}</h1>
       <h3>{listAuthor}</h3>
-      {items.map(item => {
-        return (
-            <ListItem key={item.itemId} item={item}/>
-        );
-      })}
+      <ul>
+        {items.map((item) => {
+          return <ListItem key={item.itemID} item={item} />;
+        })}
+      </ul>
+      <AddItem addItem={props.addItem}/>
     </div>
   );
 };

@@ -5,6 +5,7 @@ const listData = {
       listId: 1,
       listAuthor: "wheninseattle",
       listName: "Best Parks in Seattle",
+      listDescription: "My favorite parks in Seattle",
 
       items: [
         {
@@ -38,8 +39,15 @@ const listData = {
       listId: 2,
       listAuthor: "whenInTokyo",
       listName: "Morning Routine",
-
+      listDescription: "A few important things I strive to do each morning",
       items: [
+        {
+          itemID: 0,
+          itemName: "Snoozles",
+          itemDescription:
+            "Snuggle with babe first...",
+          itemAuthor: "whenInTokyo",
+        },
         {
           itemID: 1,
           itemName: "Get Outside",

@@ -1,18 +1,38 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import List from "./List";
+import ListPreview from "./ListPreview";
 
 const Lists = (props) => {
   const lists = props.lists || [];
+  const { currentList, currentItem, state, addItem } = props;
 
-  if (lists.length) {
+  if (lists.length && state.listSelected) {
     return (
-      <div>
-        <ul>
-          {lists.map((list) => {
-            return <List key={list.listId} list={list} />;
-          })}
-        </ul>
+      <div className="all-center">
+        <h2>Lists...</h2>
+        {lists.map((list) => {
+          return (
+            <Fragment key={list.listId}>
+              <ListPreview list={list} setCurrentList={props.setCurrentList} />
+              <br />
+            </Fragment>
+          );
+        })}
+      </div>
+    );
+  } else if (state.currentList.listId) {
+    return (
+      <div className="all-center">
+        <button
+          className="btn"
+          onClick={() => {
+            props.clearCurrentList();
+          }}
+        >
+          Back To All Lists
+        </button>
+        <List list={currentList} addItem={addItem} />
       </div>
     );
   } else {
@@ -20,3 +40,7 @@ const Lists = (props) => {
   }
 };
 export default Lists;
+
+{
+  /* <List key={list.listId} list={list} setState={props.setState} /> */
+}

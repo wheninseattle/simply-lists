@@ -4,24 +4,31 @@ import { faPlusSquare } from "@fortawesome/free-regular-svg-icons";
 
 const AddItem = (props) => {
   // Create state for AddItem Component
-  const [state, setState] = useState({
+  const [addForm, setAddForm] = useState({
     itemName: "",
     itemDescription: "",
     showForm: false,
   });
-
-  const { itemName, itemDescription, showForm } = state;
+  const { itemName, itemDescription, showForm } = addForm;
 
   const toggleAddForm = () =>
-    setState((state) => ({ ...state, showForm: !showForm }));
+    setAddForm((addForm) => ({ ...addForm, showForm: !showForm }));
 
   const onChange = (e) => {
-    setState({...state,[e.target.name]:e.target.value})
+    setAddForm({...addForm,[e.target.name]:e.target.value})
   }
     const onSubmit = (e) => {
       e.preventDefault();
-      (state.itemName === '') ? console.log('Item Name Required!')
-      : props.addListItem(state);
+      if(addForm.itemName === ''){
+        console.log('Item Name Required!')
+      } else {
+        props.addItem(addForm.itemName,addForm.itemDescription);
+        setAddForm({
+          itemName: '',
+          itemDescription: '',
+          showForm: true
+        })
+      }
   }   
 
   return (
@@ -52,7 +59,7 @@ const AddItem = (props) => {
       </div>
       <div className="">
         <button
-          className={`btn-add ${state.showForm ? "btn-add-active" : ""}`}
+          className={`btn-add ${setAddForm.showForm ? "btn-add-active" : ""}`}
           onClick={toggleAddForm}
         >
           +
