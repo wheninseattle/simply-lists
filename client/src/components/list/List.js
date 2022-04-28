@@ -7,9 +7,8 @@ import AddItem from "../listItems/AddItem";
 const List = (props) => {
   //Destructure Props
   // const { listTitle, listAuthor, listItems } = props;
-  const { listName, listAuthor, items } = props.list;
+  const { listName, listAuthor, items, listId} = props.list;
   // const { setState } = props;
-
   // Add List Item
   // const addItem = (item) => {
   //   const newItem = {
@@ -28,10 +27,17 @@ const List = (props) => {
       <h3>{listAuthor}</h3>
       <ul>
         {items.map((item) => {
-          return <ListItem key={item.itemID} item={item} />;
+          return (
+            <ListItem
+              key={item.itemID}
+              item={item}
+              editItem={props.editItem}
+              deleteItem={props.deleteItem}
+            />
+          );
         })}
       </ul>
-      <AddItem addItem={props.addItem}/>
+      <AddItem addItem={props.addItem} listId={listId} listAuthor={listAuthor} />
     </div>
   );
 };

@@ -137,7 +137,8 @@ hr {
   margin: 0.7rem 0;
   border-radius: var(--card-radius);
   box-shadow: 2px 2px 5px var(--slate-gray);
-  height:60px;
+  /* height:60px; */
+  height: fit-content;
   text-align: justify;
   display: flex;
   flex-direction: row;
@@ -170,8 +171,6 @@ hr {
 .input{
   width:90%;
   border-radius: 2px;
-}
-.input-singleline{
 }
 
 /* .card.card-expanded{

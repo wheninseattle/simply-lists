@@ -33,16 +33,53 @@ const Home = (props) => {
     setState({ ...state, currentList: {}, listSelected: !state.listSelected });
   };
 
-  const addItem = (name,description) => {
-    let listIndex = state.lists.map(list => list.listId).indexOf(state.currentList.listId);
-    console.log(uuid())
-    let listItems = [ ...state.lists[listIndex].items, {itemID: uuid(), itemName: name, itemDescription: description }];
-    let listsArray = [ ...state.lists];
+  const addItem = (name, description,listAuthor,listId) => {
+    let listIndex = state.lists
+      .map((list) => list.listId)
+      .indexOf(state.currentList.listId);
+    let listItems = [
+      ...state.lists[listIndex].items,
+      { listId: listId,itemID: uuid(), itemName: name, itemDescription: description, itemAuthor: listAuthor },
+    ];
+    let listsArray = [...state.lists];
     listsArray[listIndex].items = listItems;
 
-    setState({...state,lists:listsArray})
-    // setCurrentList(currentList.listId);
-  }
+    setState({ ...state, lists: listsArray });
+  };
+  const editItem = (listId, itemId, name, description) => {
+    let listIndex = state.lists.map((list) => list.listId).indexOf(listId);
+    console.log(listIndex);
+    console.log(itemId)
+    let itemIndex = state.lists[listIndex].items
+      .map((item) => item.itemID)
+      .indexOf(itemId);
+    console.log(itemIndex);
+    let listItems = [...state.lists[listIndex].items];
+    // {itemID: uuid(), itemName: name, itemDescription: description }
+    console.log(listItems);
+
+    setState((state) => {
+      state.lists[listIndex].items[itemIndex].itemName = name;
+      state.lists[listIndex].items[itemIndex].itemDescription = description;
+      return state;
+    });
+    console.log(state.lists[listIndex].items)
+  };
+
+  const deleteItem = (listId, itemId) => {
+    console.log(`List`)
+    let listIndex = state.lists.map((list) => list.listId).indexOf(listId);
+    console.log(listIndex)
+    let itemIndex = state.lists[listIndex].items.map((item) => itemId).indexOf(itemId);
+    console.log(`Deleting ${itemId}...`);
+    let updated = state.lists[listIndex].items.filter(
+      (item) => item.itemID != itemId
+    );
+    console.log(updated)
+    let listArray = [...state.lists];
+    listArray[listIndex].items = updated;
+    setState({...state,lists:listArray});
+  };
 
   return (
     <div className="container">
@@ -54,8 +91,10 @@ const Home = (props) => {
           currentItem={state.currentItem}
           currentList={state.currentList}
           setCurrentList={setCurrentList}
-          clearCurrentList = {clearCurrentList}
+          clearCurrentList={clearCurrentList}
           addItem={addItem}
+          editItem={editItem}
+          deleteItem={deleteItem}
         />
       )}
     </div>

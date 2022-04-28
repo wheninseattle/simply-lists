@@ -9,7 +9,7 @@ const AddItem = (props) => {
     itemDescription: "",
     showForm: false,
   });
-  const { itemName, itemDescription, showForm } = addForm;
+  const { itemName, itemDescription, showForm, listId, listAuthor} = addForm;
 
   const toggleAddForm = () =>
     setAddForm((addForm) => ({ ...addForm, showForm: !showForm }));
@@ -22,12 +22,13 @@ const AddItem = (props) => {
       if(addForm.itemName === ''){
         console.log('Item Name Required!')
       } else {
-        props.addItem(addForm.itemName,addForm.itemDescription);
+        props.addItem(addForm.itemName,addForm.itemDescription,props.listAuthor,props.listId);
         setAddForm({
           itemName: '',
           itemDescription: '',
           showForm: true
         })
+
       }
   }   
 
@@ -43,6 +44,7 @@ const AddItem = (props) => {
             type="text"
             className="form-text input input-singleline"
             name="itemName"
+            value={addForm.itemName}
             placeholder="New List Item..."
             onChange={onChange}
           />
@@ -50,6 +52,7 @@ const AddItem = (props) => {
             type="text"
             className="form-text input input-multiline"
             name="itemDescription"
+            value={addForm.itemDescription}
             placeholder="Item Description..."
             onChange={onChange}
           />

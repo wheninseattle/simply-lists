@@ -5,7 +5,7 @@ import ListPreview from "./ListPreview";
 
 const Lists = (props) => {
   const lists = props.lists || [];
-  const { currentList, currentItem, state, addItem } = props;
+  const { currentList, currentItem, state, addItem, editItem, deleteItem } = props;
 
   if (lists.length && state.listSelected) {
     return (
@@ -32,7 +32,7 @@ const Lists = (props) => {
         >
           Back To All Lists
         </button>
-        <List list={currentList} addItem={addItem} />
+        <List list={currentList} addItem={addItem} editItem={editItem} deleteItem={deleteItem}/>
       </div>
     );
   } else {
