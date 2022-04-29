@@ -2,15 +2,18 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import List from "./List";
 import ListPreview from "./ListPreview";
+import ListForm from "./ListForm";
 
 const Lists = (props) => {
   const lists = props.lists || [];
   const { currentList, currentItem, state, addItem, editItem, deleteItem } = props;
+  const { createList, updateList, deleteList } = props;
 
   if (lists.length && state.listSelected) {
     return (
       <div className="all-center">
         <h2>Lists...</h2>
+        <ListForm createList={createList}/>
         {lists.map((list) => {
           return (
             <Fragment key={list.listId}>

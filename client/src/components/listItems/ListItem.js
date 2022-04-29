@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import {
-  faArrowAltCircleUp,
-  faArrowAltCircleDown,
-  faEdit,
-  faComment,
-  faCaretSquareDown,
-} from "@fortawesome/free-regular-svg-icons";
 
 const ListItem = (props) => {
   const { itemName, itemDescription, itemID, listId } = props.item;
