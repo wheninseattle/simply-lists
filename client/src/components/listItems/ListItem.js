@@ -10,16 +10,16 @@ const ListItem = (props) => {
     itemDescription: "",
   });
 
-  const onEdit = (e) => {
-    setEditItem({
-      ...editItem,
-      itemID,
-      itemName,
-      itemDescription,
-      editItem: !editItem.editItem,
-    });
-    console.log(itemName);
-  };
+  // const onEdit = (e) => {
+  //   setEditItem({
+  //     ...editItem,
+  //     itemID,
+  //     itemName,
+  //     itemDescription,
+  //     editItem: !editItem.editItem,
+  //   });
+  //   console.log(itemName);
+  // };
 
   const onChange = (e) => {
     setEditItem({ ...editItem, [e.target.name]: e.target.value });
@@ -27,77 +27,37 @@ const ListItem = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.editItem(props.item.listId,props.item.itemID,editItem.itemName,editItem.itemDescription);
-    onEdit({editItem: !editItem.editItem})
-  }
+    props.editItem(
+      props.item.listId,
+      props.item.itemID,
+      editItem.itemName,
+      editItem.itemDescription
+    );
+    onEdit({ editItem: !editItem.editItem });
+  };
 
   const onDelete = (e) => {
-   console.log(`ListId: ${listId}`)
-   console.log(`ItemId: ${itemID}`)
-    props.deleteItem(listId,itemID);
+    console.log(`ListId: ${listId}`);
+    console.log(`ItemId: ${itemID}`);
+    props.deleteItem(listId, itemID);
+  };
+
+  const onEdit = ()=> {
+    console.log(props)
+    props.editItem(listId,itemID,itemName,itemDescription);
   }
 
   return (
-    <li className="card card-expanded" id={props.item.id}>
-      <div className="btn btn-drag">
-        <div className="dot"></div>
-        <div className="dot"></div>
-        <div className="dot"></div>
-      </div>
-
-      {editItem.editItem ? (
-        <div className="item-info">
-          <form onSubmit={onSubmit}>
-            <input
-             onChange={onChange}
-              type="text"
-              name="itemName"
-              value={editItem.itemName}
-              id="itemName"
-            />
-            <input
-             onChange={onChange}
-              type="text"
-              name="itemDescription"
-              value={editItem.itemDescription}
-              id="itemName"
-            />
-            <button className="btn" type="submit">Submit</button>
-          </form>
+    <div onClick={onEdit} className="list-item">
+      <div className="item-info">
+        <div id="item-title" className="">
+          <h3 className="item-title" >{itemName}</h3>
         </div>
-      ) : (
-        <div className="item-info">
-          <div id="item-title" className="">
-            <h3 className="item-title">{itemName}</h3>
-          </div>
-          <div className="context" id="item-context">
-            <p>{itemDescription}</p>
-          </div>
+        <div className="item-description" id="item-description">
+          <p>{itemDescription}</p>
         </div>
-      )}
-
-      <div id="item-options" className="flex-v">
-        <button onClick={onEdit} className="btn btn-icon">
-          <i className="fa-solid fa-pen"></i>
-        </button>
-        <button onClick={onDelete} className="btn btn-icon">
-          <i className="fa-solid fa-circle-xmark"></i>
-        </button>
-        <button className="btn btn-icon">
-          <i className="fa-solid fa-comments"></i>
-        </button>
       </div>
-      <div id="item-vote" className="self-right">
-        <button className="btn btn-icon-vote">
-          <i className="fa-solid fa-circle-up"></i>
-        </button>
-        <div>5</div>
-        <button className="btn btn-icon-vote">
-          <i className="fa-solid fa-circle-down"></i>
-        </button>
-        <i className="fa-regular fa-down"></i>
-      </div>
-    </li>
+    </div>
   );
 };
 
