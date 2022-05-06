@@ -6,7 +6,7 @@ import ListForm from "./ListForm";
 
 const Lists = (props) => {
   const lists = props.lists || [];
-  const { currentList, currentItem, state, addItem, editItem, deleteItem } = props;
+  const { currentList, currentItem, state, addItem, editItem, updateItem, deleteItem } = props;
   const { createList, updateList, deleteList } = props;
 
   if (lists.length && state.listSelected) {
@@ -35,7 +35,7 @@ const Lists = (props) => {
         >
           Back To All Lists
         </button>
-        <List list={currentList} addItem={addItem} editItem={editItem} deleteItem={deleteItem}/>
+        <List list={currentList} addItem={addItem} editItem={editItem} updateItem={updateItem} clearCurrentItem={props.clearCurrentItem} deleteItem={deleteItem} state={props.state}/>
       </div>
     );
   } else {

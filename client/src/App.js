@@ -6,6 +6,7 @@ import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import AuthState from "./context/auth/AuthState";
+import Login from "./components/auth/Login";
 
 const App = () => {
   // console.log(sampleData)
@@ -18,6 +19,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </div>
         </Fragment>

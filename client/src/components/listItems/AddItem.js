@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-regular-svg-icons";
 
@@ -8,66 +8,112 @@ const AddItem = (props) => {
     itemName: "",
     itemDescription: "",
     showForm: false,
+    updating: false,
   });
-  const { itemName, itemDescription, showForm, listId, listAuthor} = addForm;
+  const { itemName, itemDescription, showForm, listId, listAuthor } = addForm;
 
   const toggleAddForm = () =>
     setAddForm((addForm) => ({ ...addForm, showForm: !showForm }));
 
   const onChange = (e) => {
-    setAddForm({...addForm,[e.target.name]:e.target.value})
-  }
-    const onSubmit = (e) => {
-      e.preventDefault();
-      if(addForm.itemName === ''){
-        console.log('Item Name Required!')
-      } else {
-        props.addItem(addForm.itemName,addForm.itemDescription,props.listAuthor,props.listId);
-        setAddForm({
-          itemName: '',
-          itemDescription: '',
-          showForm: true
-        })
+    setAddForm({ ...addForm, [e.target.name]: e.target.value });
+  };
 
-      }
-  }   
+  const onCancel = () => {
+    if (props.clearCurrentItem) {
+      props.clearCurrentItem();
+    }
+    toggleAddForm();
+  };
+  
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (addForm.itemName === "") {
+      console.log("Item Name Required!");
+    } else if (!addForm.updating) {
+      props.addItem(
+        addForm.itemName,
+        addForm.itemDescription,
+        props.listAuthor,
+        props.listId
+        );
+        setAddForm({
+          itemName: "",
+          itemDescription: "",
+          showForm: true,
+        });
+      } else if (addForm.updating) {
+        props.updateItem(
+          props.listId,
+          props.itemId,
+          addForm.itemName,
+          addForm.itemDescription
+          );
+          setAddForm({
+            itemName: "",
+            itemDescription: "",
+            showForm: true,
+          });
+          if (props.clearCurrentItem) {
+            props.clearCurrentItem();
+          }
+          toggleAddForm();
+        }
+      };
+      useEffect(() => {
+        if (props.updateItem) {
+          setAddForm({
+        ...addForm,
+        itemName: props.itemName,
+        itemDescription: props.itemDescription,
+        showForm: true,
+        updating: true,
+      });
+    }
+  }, []);
 
   return (
     <Fragment>
-      <div
-        className={`card add-card ${showForm ? "add-card-active" : ""}`}
-        itemID="add-form-card"
-      >
-        <form className="add-form" onSubmit={onSubmit}>
-          <h3 className="">Add Item</h3>
-          <input
-            type="text"
-            className="form-text input input-singleline"
-            name="itemName"
-            value={addForm.itemName}
-            placeholder="New List Item..."
-            onChange={onChange}
-          />
-          <input
-            type="text"
-            className="form-text input input-multiline"
-            name="itemDescription"
-            value={addForm.itemDescription}
-            placeholder="Item Description..."
-            onChange={onChange}
-          />
-          <button className="btn btn-primary" type="submit">Add</button>
-          {/* <button className="btn " onClick={cancelAdd}>Cancel</button> */}
-        </form>
-      </div>
-      <div className="">
-        <button
-          className={`btn-add ${setAddForm.showForm ? "btn-add-active" : ""}`}
-          onClick={toggleAddForm}
-        >
+      {!showForm && (
+        <button className="btn btn-add" onClick={toggleAddForm}>
           +
         </button>
-      </div>
+      )}
+      {showForm && (
+        <div className={`my-1 p-1 add-card`} itemID="add-form-card">
+          <form className="add-form py-1" onSubmit={onSubmit}>
+            <input
+              type="text"
+              className="item-title"
+              name="itemName"
+              value={addForm.itemName}
+              placeholder="New List Item..."
+              onChange={onChange}
+            />
+            <input
+              type="text"
+              className="item-description"
+              name="itemDescription"
+              value={addForm.itemDescription}
+              placeholder="Item Description..."
+              onChange={onChange}
+            />
+            {/* <button className="btn " onClick={cancelAdd}>Cancel</button> */}
+          </form>
+          <div className="flex-h self-left my-1">
+            <button
+              onClick={onSubmit}
+              className="btn btn-primary"
+              type="submit"
+            >
+              {addForm.updating ? "Update" : "Add"}
+            </button>
+            <button onClick={onCancel} className="btn btn-medium">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </Fragment>
   );
 };

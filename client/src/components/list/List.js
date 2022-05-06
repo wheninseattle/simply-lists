@@ -47,16 +47,35 @@ const List = (props) => {
           <i className="fa-regular fa-down"></i>
         </div>
       </div>
-      <ul>
+      <ul className="all-center">
         {items.map((item) => {
+          console.log(item.itemID)
+          console.log(props.state.currentItem)
+          if(item.itemID === props.state.currentItem.itemId){
+            return (
+              <AddItem 
+                key={props.state.currentItem.itemId}
+                itemName={props.state.currentItem.itemName}
+                itemDescription={props.state.currentItem.itemDescription}
+                listId={props.state.currentItem.listId}
+                itemId={props.state.currentItem.itemId}
+                updateItem={props.updateItem}
+                clearCurrentItem = {props.clearCurrentItem}
+                addItem={props.addItem}
+              />
+            )
+          }else{
+              console.log(item.itemID)
           return (
             <ListItem
               key={item.itemID}
               item={item}
               editItem={props.editItem}
+              updateItem={props.updateItem}
               deleteItem={props.deleteItem}
             />
           );
+          }
         })}
       </ul>
       <AddItem

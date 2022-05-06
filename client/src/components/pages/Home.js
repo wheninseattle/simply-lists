@@ -22,8 +22,10 @@ const Home = (props) => {
   }, []);
 
   const setCurrentList = (listId) => {
-    let list = state.lists.filter((list) => list.listId === listId)[0];
-    // console.table(list)
+    let listIndex = state.lists.indexOf(state.lists.filter((list) => list.listId === listId)[0]);
+    let list = state.lists[listIndex];
+    
+    console.table(list)
     setState({
       ...state,
       currentList: list,
@@ -48,10 +50,10 @@ const Home = (props) => {
       listName: listName,
       listDescription: listDescription,
       listAuthor: listAuthor,
-      items: []
+      items: [],
     };
-    setState((state)=>({...state, lists: [...state.lists, newList] }));
-    
+    setState((state) => ({ ...state, lists: [...state.lists, newList] }));
+
     // setCurrentList(listId);
   };
 
@@ -67,6 +69,7 @@ const Home = (props) => {
   };
 
   const addItem = (name, description, listAuthor, listId) => {
+    console.log('Adding...')
     let listIndex = state.lists
       .map((list) => list.listId)
       .indexOf(state.currentList.listId);
@@ -85,10 +88,11 @@ const Home = (props) => {
 
     setState({ ...state, lists: listsArray });
   };
-  const editItem = (listId, itemId, name, description) => {
+  const updateItem = (listId, itemId, name, description) => {
     let listIndex = state.lists.map((list) => list.listId).indexOf(listId);
     console.log(listIndex);
     console.log(itemId);
+    console.log(state.lists[listIndex]);
     let itemIndex = state.lists[listIndex].items
       .map((item) => item.itemID)
       .indexOf(itemId);
@@ -104,6 +108,50 @@ const Home = (props) => {
     });
     console.log(state.lists[listIndex].items);
   };
+
+  const editItem = (listId, itemId, itemName, itemDescription) => {
+    setCurrentItem(listId, itemId,itemName,itemDescription);
+
+    console.log(listId)
+    console.log(itemId)
+  };
+
+  const setCurrentItem = (listId, itemId = null, itemName, itemDescription) => {
+    if (itemId === null) {
+      setState({
+        ...state,
+        currentItem: {
+          listId: "",
+          itemId: "",
+          itemName: "",
+          itemDescription: "",
+        },
+      });
+    } else {
+      console.log(itemId)
+      setState({
+        ...state,
+        currentItem: {
+          listId: listId,
+          itemId: itemId,
+          itemName: itemName,
+          itemDescription: itemDescription,
+        },
+      });
+    }
+  };
+
+  const clearCurrentItem = () => {
+    setState({
+      ...state,
+      currentItem: {
+        listId: "",
+        itemId: "",
+        itemName: "",
+        itemDescription: "",
+      },
+    });
+  }
 
   const deleteItem = (listId, itemId) => {
     console.log(`List`);
@@ -124,18 +172,20 @@ const Home = (props) => {
 
   return (
     <div className="container">
-      <Register />
+      {/* <Register /> */}
       {state.lists.length && (
         <Lists
           lists={state.lists}
           setState={setState}
           state={state}
           currentItem={state.currentItem}
+          clearCurrentItem={clearCurrentItem}
           currentList={state.currentList}
           setCurrentList={setCurrentList}
           clearCurrentList={clearCurrentList}
           addItem={addItem}
           editItem={editItem}
+          updateItem={updateItem}
           deleteItem={deleteItem}
           createList={createList}
           updateList={updateList}
