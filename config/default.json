@@ -1,3 +1,4 @@
 {
-    "mongoURI":"mongodb+srv://wheninseattle:LgRJ1lnbZ1DMY62u@justlists.b8owx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    "mongoURI":"mongodb+srv://wheninseattle:LgRJ1lnbZ1DMY62u@justlists.b8owx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "jwtSecret":"@Lists4Ev3r27"
 }
