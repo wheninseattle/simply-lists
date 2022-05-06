@@ -3,6 +3,7 @@ import List from "../list/List";
 import Lists from "../list/Lists";
 import listData from "../../sampleData/listData";
 import { v4 as uuid } from "uuid";
+import Register from "../auth/Register";
 
 const Home = (props) => {
   //Load sample data into state
@@ -22,6 +23,7 @@ const Home = (props) => {
 
   const setCurrentList = (listId) => {
     let list = state.lists.filter((list) => list.listId === listId)[0];
+    // console.table(list)
     setState({
       ...state,
       currentList: list,
@@ -33,13 +35,50 @@ const Home = (props) => {
     setState({ ...state, currentList: {}, listSelected: !state.listSelected });
   };
 
-  const addItem = (name, description,listAuthor,listId) => {
+  // List Manipulation
+
+  // Create New List
+  const createList = (listId, listName, listDescription, listAuthor) => {
+    console.log("Creating List...");
+
+    // Can we use a constructor here?
+
+    const newList = {
+      listId: listId,
+      listName: listName,
+      listDescription: listDescription,
+      listAuthor: listAuthor,
+      items: []
+    };
+    setState((state)=>({...state, lists: [...state.lists, newList] }));
+    
+    // setCurrentList(listId);
+  };
+
+  // Update List
+  const updateList = () => {
+    console.log("Updating List...");
+  };
+
+  // Delete List
+
+  const deleteList = () => {
+    console.log("Deleting List...");
+  };
+
+  const addItem = (name, description, listAuthor, listId) => {
     let listIndex = state.lists
       .map((list) => list.listId)
       .indexOf(state.currentList.listId);
     let listItems = [
       ...state.lists[listIndex].items,
-      { listId: listId,itemID: uuid(), itemName: name, itemDescription: description, itemAuthor: listAuthor },
+      {
+        listId: listId,
+        itemID: uuid(),
+        itemName: name,
+        itemDescription: description,
+        itemAuthor: listAuthor,
+      },
     ];
     let listsArray = [...state.lists];
     listsArray[listIndex].items = listItems;
@@ -49,7 +88,7 @@ const Home = (props) => {
   const editItem = (listId, itemId, name, description) => {
     let listIndex = state.lists.map((list) => list.listId).indexOf(listId);
     console.log(listIndex);
-    console.log(itemId)
+    console.log(itemId);
     let itemIndex = state.lists[listIndex].items
       .map((item) => item.itemID)
       .indexOf(itemId);
@@ -63,26 +102,29 @@ const Home = (props) => {
       state.lists[listIndex].items[itemIndex].itemDescription = description;
       return state;
     });
-    console.log(state.lists[listIndex].items)
+    console.log(state.lists[listIndex].items);
   };
 
   const deleteItem = (listId, itemId) => {
-    console.log(`List`)
+    console.log(`List`);
     let listIndex = state.lists.map((list) => list.listId).indexOf(listId);
-    console.log(listIndex)
-    let itemIndex = state.lists[listIndex].items.map((item) => itemId).indexOf(itemId);
+    console.log(listIndex);
+    let itemIndex = state.lists[listIndex].items
+      .map((item) => itemId)
+      .indexOf(itemId);
     console.log(`Deleting ${itemId}...`);
     let updated = state.lists[listIndex].items.filter(
       (item) => item.itemID != itemId
     );
-    console.log(updated)
+    console.log(updated);
     let listArray = [...state.lists];
     listArray[listIndex].items = updated;
-    setState({...state,lists:listArray});
+    setState({ ...state, lists: listArray });
   };
 
   return (
     <div className="container">
+      <Register />
       {state.lists.length && (
         <Lists
           lists={state.lists}
@@ -95,6 +137,9 @@ const Home = (props) => {
           addItem={addItem}
           editItem={editItem}
           deleteItem={deleteItem}
+          createList={createList}
+          updateList={updateList}
+          deleteList={deleteList}
         />
       )}
     </div>
