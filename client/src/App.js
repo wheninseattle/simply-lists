@@ -8,11 +8,13 @@ import About from "./components/pages/About";
 import AuthState from "./context/auth/AuthState";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import AlertState from "./context/alert/AlertState";
 
 const App = () => {
   // console.log(sampleData)
   return (
     // <AuthState>
+    <AlertState>
       <Router>
         <Fragment>
           <Navbar />
@@ -26,6 +28,7 @@ const App = () => {
           </div>
         </Fragment>
       </Router>
+    </AlertState>
     // </AuthState>
   );
 };

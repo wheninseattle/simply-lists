@@ -9,8 +9,9 @@
   --slate-gray: #708090;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
+  --danger-color-trans: #dc354550;
   --success-color: #28a745;
-  --card-radius: 2.5px;
+  --card-radius: 5px;
 }
 
 * {
@@ -430,6 +431,7 @@ hr {
   margin: 1rem 0;
   opacity: 0.9;
   background: var(--light-color);
+  border-radius: var(--card-radius);
   color: #333;
 }
 
@@ -469,6 +471,7 @@ hr {
 .badge-danger,
 .alert-danger {
   background: var(--danger-color);
+  /* border: 1px solid var(--danger-color); */
   color: #fff;
 }
 
