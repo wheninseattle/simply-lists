@@ -35,7 +35,7 @@ const Lists = (props) => {
         >
           Back To All Lists
         </button>
-        <List list={currentList} addItem={addItem} editItem={editItem} updateItem={updateItem} deleteItem={deleteItem} state={props.state}/>
+        <List list={currentList} addItem={addItem} editItem={editItem} updateItem={updateItem} clearCurrentItem={props.clearCurrentItem} deleteItem={deleteItem} state={props.state}/>
       </div>
     );
   } else {

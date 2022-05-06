@@ -69,6 +69,7 @@ const Home = (props) => {
   };
 
   const addItem = (name, description, listAuthor, listId) => {
+    console.log('Adding...')
     let listIndex = state.lists
       .map((list) => list.listId)
       .indexOf(state.currentList.listId);
@@ -91,6 +92,7 @@ const Home = (props) => {
     let listIndex = state.lists.map((list) => list.listId).indexOf(listId);
     console.log(listIndex);
     console.log(itemId);
+    console.log(state.lists[listIndex]);
     let itemIndex = state.lists[listIndex].items
       .map((item) => item.itemID)
       .indexOf(itemId);
@@ -139,6 +141,18 @@ const Home = (props) => {
     }
   };
 
+  const clearCurrentItem = () => {
+    setState({
+      ...state,
+      currentItem: {
+        listId: "",
+        itemId: "",
+        itemName: "",
+        itemDescription: "",
+      },
+    });
+  }
+
   const deleteItem = (listId, itemId) => {
     console.log(`List`);
     let listIndex = state.lists.map((list) => list.listId).indexOf(listId);
@@ -165,6 +179,7 @@ const Home = (props) => {
           setState={setState}
           state={state}
           currentItem={state.currentItem}
+          clearCurrentItem={clearCurrentItem}
           currentList={state.currentList}
           setCurrentList={setCurrentList}
           clearCurrentList={clearCurrentList}

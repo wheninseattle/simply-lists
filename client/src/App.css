@@ -182,12 +182,10 @@ hr {
 }
 
 .add-card{
-  flex-direction: column;
+  /* flex-direction: column; */
   width: 100%;
-  justify-content:center;
-  align-items: center;
-  border: var(--medlight-color) solid 1px;
-  border-radius: 10px;
+  /* justify-content:center; */
+  /* align-items: center; */
 }
 
 .add-card input{
@@ -198,6 +196,8 @@ hr {
 
 
 .add-form{
+  border: var(--medlight-color) solid 1px;
+  border-radius: 10px;
   width: 90%;
   
 }
@@ -366,20 +366,23 @@ hr {
   /* justify-content: center;
   align-items: center; */
   /* display: block; */
-  align-self: center;
+  /* align-self: center;
   justify-self: center;
   align-items: center ;
-  align-content: center;
+  align-content: center; */
   line-height: 4rem;
   height: 4rem;
   width: 4rem;
-  border: 1px solid var(--dark-color);
-  color: var(--dark-color);
+  /* border: 1px solid var(--dark-color); */
+  border: none;
+  color: var(--primary-color);
   background-color: transparent;
-  border-radius: 50% 50%;
-  font-size: 5rem;
-  margin-bottom: 20px;
-  text-align: center;
+  /* border-radius: 50% 50%; */
+  font-size: 3rem;
+  /* font-weight: bold; */
+  align-self: flex-start;
+  /* margin-bottom: 20px; */
+  /* text-align: center; */
 }
 
 .btn-add-active {

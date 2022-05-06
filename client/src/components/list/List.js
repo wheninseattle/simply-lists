@@ -60,6 +60,8 @@ const List = (props) => {
                 listId={props.state.currentItem.listId}
                 itemId={props.state.currentItem.itemId}
                 updateItem={props.updateItem}
+                clearCurrentItem = {props.clearCurrentItem}
+                addItem={props.addItem}
               />
             )
           }else{
@@ -69,6 +71,7 @@ const List = (props) => {
               key={item.itemID}
               item={item}
               editItem={props.editItem}
+              updateItem={props.updateItem}
               deleteItem={props.deleteItem}
             />
           );
