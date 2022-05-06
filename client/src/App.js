@@ -7,6 +7,7 @@ import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import AuthState from "./context/auth/AuthState";
 import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 
 const App = () => {
   // console.log(sampleData)
@@ -20,6 +21,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
           </div>
         </Fragment>
