@@ -13,7 +13,6 @@ import {
   LIST_ERROR
 } from "../types";
 
-import React from "react";
 
 const ListState = (props) => {
 
@@ -21,7 +20,7 @@ const ListState = (props) => {
   const initialState = [];
 
   // Initializing state and dispatch. State allows us to access anything in our state and dispath allows us to use the reducer
-  const [state, dispatch] = useReducer(contactReducer, initialState)
+  const [state, dispatch] = useReducer(listReducer, initialState)
 
   // Add List
   const addList = () => {
@@ -51,7 +50,10 @@ const ListState = (props) => {
   // Clear Filter
 
   return (
-    <ListContext.Provider value={{}}>{props.children}</ListContext.Provider>
+    <ListContext.Provider value={{
+      lists: state.lists,
+      
+    }}>{props.children}</ListContext.Provider>
   );
 };
 

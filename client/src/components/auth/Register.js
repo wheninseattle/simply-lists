@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import AuthContext from "../../context/auth/authContext";
+import AlertContext from "../../context/alert/alertContext";
+import { SET_ALERT } from "../../context/types";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -10,14 +13,25 @@ const Register = () => {
 
   const { name, email, password, password2 } = user;
 
-const onChange = (e) => {
-    setUser({ ...user,[e.target.name]: e.target.value})
-}
+  // Initialize context
 
-const onSubmit = (e) => {
-  e.preventDefault();
-  console.log('Register Submit')
-}
+  const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
+
+ const { register } = authContext;
+ const { setAlert } = alertContext;
+
+  const onChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if(name === '' || email === '' || password === ''){
+      setAlert('Please include all fields','danger')
+    }
+    console.log("Register Submit");
+  };
 
   return (
     <div className="form-container">
@@ -51,7 +65,11 @@ const onSubmit = (e) => {
             onChange={onChange}
           />
         </div>
-        <input type="submit" value="Register" className="btn btn-primary btn-block" />
+        <input
+          type="submit"
+          value="Register"
+          className="btn btn-primary btn-block"
+        />
       </form>
     </div>
   );

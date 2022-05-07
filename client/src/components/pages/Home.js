@@ -3,8 +3,6 @@ import List from "../list/List";
 import Lists from "../list/Lists";
 import listData from "../../sampleData/listData";
 import { v4 as uuid } from "uuid";
-import Register from "../auth/Register";
-import Alerts from "../layout/Alerts";
 
 const Home = (props) => {
   //Load sample data into state
@@ -173,8 +171,6 @@ const Home = (props) => {
 
   return (
     <div className="container">
-      {/* <Register /> */}
-      <Alerts/>
       {state.lists.length && (
         <Lists
           lists={state.lists}

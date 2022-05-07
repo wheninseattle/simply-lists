@@ -35,7 +35,7 @@ const AddItem = (props) => {
     e.preventDefault();
     if (addForm.itemName === "") {
       const msg = 'Item name required!';
-      alertContext.setAlert(msg,'danger',10000)
+      alertContext.setAlert(msg,'danger')
       console.log("Item Name Required!");
     } else if (!addForm.updating) {
       props.addItem(

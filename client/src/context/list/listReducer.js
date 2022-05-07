@@ -8,3 +8,7 @@ import {
   CLEAR_CURRENT_LIST,
   LIST_ERROR
 } from "../types";
+
+export default (state,action) => {
+  
+}

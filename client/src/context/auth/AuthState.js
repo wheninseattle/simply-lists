@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import authContext from "./authContext";
+import AuthContext from "./authContext";
 import authReducer from "./authReducer";
 import axios from "axios";
 
@@ -38,8 +38,14 @@ const AuthState = (props) => {
       const res = await axios.post("/api/users", formData, config);
       dispatch({
         type: REGISTER_SUCCESS,
+        payload: res.data,
       });
-    } catch (error) {}
+    } catch (err) {
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: err.response.data.msg,
+      });
+    }
   };
   // Login User
 
@@ -50,15 +56,18 @@ const AuthState = (props) => {
   // Context provider
 
   return (
-    <authContext.Provider
+    <AuthContext.Provider
       value={{
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,
         user: state.user,
         error: state.error,
+        register,
       }}
-    ></authContext.Provider>
+    >
+      {props.children}
+    </AuthContext.Provider>
   );
 };
 
