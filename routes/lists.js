@@ -1,33 +1,105 @@
-const express = require('express');
-
+const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
+const { check, validationResult } = require("express-validator");
+
+const User = require("../models/User");
+const List = require("../models/List");
 
 // @route    POST  api/lists
 // @desc     Create a new list
 // @access   Public
-router.post('/', (req,res) =>{
-    res.send('Create list');
-});
+router.post(
+  "/",
+  [auth, [check("name", "Please give your list a name").not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { name, description } = req.body;
+    try {
+      const newList = new List({
+        name,
+        description,
+        user: req.user.id, //Get from auth middleware
+      });
+      console.log(req.user);
+      const list = await newList.save();
+      res.json(list);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+    res.send("Create list");
+  }
+);
 
 // @route    Get  api/lists
 // @desc     Get lists
 // @access   Public
-router.get('/', (req,res) =>{
-    res.send('Get lists');
+router.get("/", auth, async (req, res) => {
+  try {
+    const lists = await List.find({ user: req.user.id }).sort({ date: -1 });
+    res.json(lists);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 });
 
 // @route    PUT  api/lists/:id
 // @desc     Edit a list
 // @access   Private
-router.put('/:id', (req,res) =>{
-    res.send('Edit lists');
+router.put("/:id", auth, async (req, res) => {
+  const { name, description } = req.body;
+
+  //Build list object
+  const listFields = {};
+  if (name) listFields.name = name;
+  if (description) listFields.description = description;
+  console.log(listFields)
+  try {
+    let list = await List.findById(req.params.id);
+
+    if (!list) return res.status(400).json({ msg: "List not found" });
+    // Make sure user owns list
+    if (list.user.toString() != req.user.id) {
+      return res.status(401).json({ msg: "Not authorized" });
+    }
+    list = await List.findByIdAndUpdate(
+      req.params.id,
+      { $set: listFields },
+      { new: true }
+    );
+
+    res.json(list);
+  } catch (err) {}
+  console.error(err.message);
+  res.status(500).send("Server Error");
 });
 
 // @route    DELETE  api/lists/:id
 // @desc     Delete a list
 // @access   Private
-router.delete('/:id', (req,res) =>{
-    res.send('Delete List');
-});
+router.delete("/:id", auth, async (req, res) => {
+    try {
+        let list = await List.findById(req.params.id);
+    
+        if (!list) return res.status(400).json({ msg: "List not found" });
+        // Make sure user owns list
+        if (list.user.toString() != req.user.id) {
+          return res.status(401).json({ msg: "Not authorized" });
+        }
+      await List.findByIdAndRemove(req.params.id);
+    
+        res.json({msg:'Contact removed'});
+      } catch (err) {
+          console.error(err.message);
+          res.status(500).send("Server Error");
+
+      }
+    });
 
 module.exports = router;
