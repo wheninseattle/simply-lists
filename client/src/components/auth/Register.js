@@ -1,17 +1,17 @@
 import React, { useState, useContext } from "react";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
-import { SET_ALERT } from "../../context/types";
 
 const Register = () => {
   const [user, setUser] = useState({
     name: "",
+    username: "",
     email: "",
     password: "",
     password2: "",
   });
 
-  const { name, email, password, password2 } = user;
+  const { name, username, email, password, password2 } = user;
 
   // Initialize context
 
@@ -27,10 +27,16 @@ const Register = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if(name === '' || email === '' || password === ''){
+    if(name === '' || username=== '' || email === '' || password === ''){
       setAlert('Please include all fields','danger')
+    } else {
+      register({
+        name,
+        username,
+        email,
+        password
+      })
     }
-    console.log("Register Submit");
   };
 
   return (
@@ -42,6 +48,10 @@ const Register = () => {
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input type="text" name="name" value={name} onChange={onChange} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input type="text" name="username" value={username} onChange={onChange} />
         </div>
         <div className="form-group">
           <label htmlFor="name">Email Address</label>
