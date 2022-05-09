@@ -1,27 +1,26 @@
 import React, { useState, useContext, useEffect } from "react";
-// import AlertContext from "../../context/alert/alertContext";
-// import AuthContext from "../../context/auth/authContext";
+import AlertContext from "../../context/alert/alertContext";
+import AuthContext from "../../context/auth/authContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
-  
   // Establish user object in state
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
- 
+
   // Deconstruct user object to use as variables
   const { email, password } = user;
 
   // Initialize and deconstruct alert context
-//   const alertContext = useContext(AlertContext);
-//   const { setAlert } = alertContext;
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
 
   // Initialize and deconstruct auth state to use as variabls
-//   const authcontext = useContext(AuthContext);
-//   const { login, error, clearErrors, isAuthenticated } = authcontext;
- 
+  const authcontext = useContext(AuthContext);
+  const { login, error, clearErrors, isAuthenticated } = authcontext;
+
   // Initialize useNavigate
   const navigate = useNavigate();
 
@@ -29,34 +28,30 @@ const Login = (props) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  // Watch for error state to change
-//   useEffect(() => {
-//     //Redirect if already authenticated
-//     if (isAuthenticated) {
-//       navigate("/");
-//     }
-
-//     if (error === "Invalid Credentials") {
-//       setAlert(error, "danger");
-//       clearErrors();
-//     }
-//     // eslint-disable-next-line
-//   }, [error, isAuthenticated, props.history]);
-  const onSubmit = (e) => {
-    e.preventDefault();
-    try {
-      if (email === '' || password === '') {
-        // setAlert('Make sure to fill in both email and password', 'danger');
-      } else {
-        // login({
-        //   email,
-        //   password
-        // });
-      }
-    } catch (error) {
-    //   setAlert('Nope','danger')
+  useEffect(() => {
+    //Redirect if already authenticated
+    if (isAuthenticated) {
+      navigate("/");
     }
-    
+
+    if (error === "Invalid Credentials") {
+      setAlert(error, "danger");
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
+  const onSubmit = (e) => {
+    console.log("Got Here");
+    e.preventDefault();
+    if (email === "" || password === "") {
+      console.log("Testing 2");
+      setAlert("Make sure to fill in both email and password", "danger");
+    } else {
+      login({
+        email,
+        password
+      })
+    }
   };
 
   return (
@@ -71,7 +66,7 @@ const Login = (props) => {
             type="email"
             name="email"
             value={email}
-            required 
+            // required
             placeholder="Email Address"
             autoComplete="email"
             onChange={onChange}
@@ -83,17 +78,20 @@ const Login = (props) => {
             type="password"
             name="password"
             value={password}
-            required
+            // required
             placeholder="password"
             autoComplete="password"
             onChange={onChange}
           />
         </div>
-        <input
-          type="submit"
-          value="Login"
-          className="btn btn-primary btn-block"
-        />
+        <div className="form-group">
+          <input
+            type="submit"
+            value="Login"
+            className="btn btn-primary btn-block"
+            onSubmit={onSubmit}
+          />
+        </div>
       </form>
     </div>
   );
