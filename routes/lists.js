@@ -39,7 +39,7 @@ router.post(
 );
 
 // @route    Get  api/lists
-// @desc     Get lists
+// @desc     Get private lists
 // @access   Public
 router.get("/", auth, async (req, res) => {
   try {

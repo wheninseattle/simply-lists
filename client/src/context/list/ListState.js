@@ -1,8 +1,7 @@
-import React, { useReducer, useContext } from "react";
+import React, { useReducer } from "react";
 import { v4 as uuid } from "uuid";
 import ListContext from "./listContext";
 import listReducer from "./listReducer";
-// import AuthContext from "../auth/authContext";
 import axios from "axios";
 
 import {
@@ -30,28 +29,32 @@ const ListState = (props) => {
   // Initializing state and dispatch. State allows us to access anything in our state and dispath allows us to use the reducer
   const [state, dispatch] = useReducer(listReducer, initialState)
 
-  // const authContext = useContext(AuthContext);
   // Add List
   const addList = async (list) => {
-    console.log(`Received data, attempting to make lists: ${list.listName} : ${list.listDescription}`)
     const config = {
       headers: {
         "Content-Type": "application/json",
-        // "x-auth-token": authContext.token
       },
     };
     try {
       const res = await axios.post("api/lists",list,config);
-    
-      console.log(`We were able to get this far with ${res}`)
+      dispatch({
+        type: ADD_LIST,
+        payload: res.data
+      })
     } catch (err) {
-      console.log(err)
+      dispatch({
+        type: LIST_ERROR,
+        payload: err.response.msg
+      })
     }
   }
-  // ADD_LIST,
+  
+  // GET_LISTS
+
+
   // DELETE_LIST,
   // UPDATE_LIST,
-  // GET_LISTS,
   // CLEAR_LISTS,
   // SET_CURRENT_LIST,
   // CLEAR_CURRENT_LIST,

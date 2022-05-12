@@ -10,5 +10,15 @@ import {
 } from "../types";
 
 export default (state,action) => {
-  
+  switch (action.type) {
+    case ADD_LIST:
+      return {
+        ...state,
+        lists: [action.payload, ...state.contacts],
+        loading: false
+      }
+      
+    default:
+      return state;
+  }
 }
