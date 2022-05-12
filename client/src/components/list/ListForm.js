@@ -1,5 +1,6 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useContext, Fragment } from "react";
 import { v4 as uuid } from "uuid";
+import ListContext from "../../context/list/listContext";
 
 const ListForm = (props) => {
   const [state, setState] = useState({
@@ -9,11 +10,13 @@ const ListForm = (props) => {
     listAuthor: "",
     showForm: false,
   });
+  const listState = useContext(ListContext);
+
+  const {addList} = listState;
 
   const { listId, listName, listDescription, listAuthor, showForm } = state;
 
   const onToggleForm = () => {
-    console.log("Toggling Form...");
     setState({ ...state, showForm: !state.showForm });
   };
 
@@ -25,6 +28,12 @@ const ListForm = (props) => {
     e.preventDefault();
     if (listName != "" && listDescription != "") {
       props.createList(uuid(), listName, listDescription, "WheninSeattle");
+      const listOut = {
+        name: listName,
+        description: listDescription
+      };
+      console.log(listOut)
+      addList(listOut);
       setState({
         listId: "",
         listName: "",
@@ -37,7 +46,7 @@ const ListForm = (props) => {
     }
   };
 
-  const onCancle = () => {
+  const onCancel = () => {
     setState({...state, showform: !state.showForm})
   }
 
@@ -63,7 +72,7 @@ const ListForm = (props) => {
             <button className="btn btn-primary" type="submit">
               Create List
             </button>
-            <button onClick={onCancle} className="btn">Cancel</button>
+            <button onClick={onCancel} className="btn">Cancel</button>
           </form>
         </div>
       ) : (

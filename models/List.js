@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const ListItem = require('../models/ListItem');
+const listItem = require('../models/ListItem');
 
 const ListSchema = mongoose.Schema({
     user: {

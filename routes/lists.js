@@ -11,28 +11,30 @@ const List = require("../models/List");
 // @access   Public
 router.post(
   "/",
-  [auth, [check("name", "Please give your list a name").not().isEmpty()]],
+  auth,
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+    console.log('Did we get here?')
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   console.log(`We got some errors here: ${errors.array()}`)
+    //   return res.status(400).json({ errors: errors.array() });
+    // }
 
     const { name, description } = req.body;
+    console.table(req.body)
     try {
       const newList = new List({
         name,
         description,
         user: req.user.id, //Get from auth middleware
       });
-      console.log(req.user);
+      console.table(newList);
       const list = await newList.save();
       res.json(list);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
     }
-    res.send("Create list");
   }
 );
 

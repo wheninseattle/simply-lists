@@ -9,29 +9,31 @@ import AuthState from "./context/auth/AuthState";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import AlertState from "./context/alert/AlertState";
-// import ListState from "./context/list/ListState";
+import ListState from "./context/list/ListState";
 import Alerts from "./components/layout/Alerts";
 
 const App = () => {
   // console.log(sampleData)
   return (
     <AuthState>
-      <AlertState>
-        <Router>
-          <Fragment>
-            <Navbar />
-            <div className="container">
-            <Alerts/>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-              </Routes>
-            </div>
-          </Fragment>
-        </Router>
-      </AlertState>
+      <ListState>
+        <AlertState>
+          <Router>
+            <Fragment>
+              <Navbar />
+              <div className="container">
+                <Alerts />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                </Routes>
+              </div>
+            </Fragment>
+          </Router>
+        </AlertState>
+      </ListState>
     </AuthState>
   );
 };
