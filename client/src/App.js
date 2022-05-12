@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { Fragment } from "react";
-// import List from "./components/list/List";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
@@ -11,9 +10,14 @@ import Register from "./components/auth/Register";
 import AlertState from "./context/alert/AlertState";
 import ListState from "./context/list/ListState";
 import Alerts from "./components/layout/Alerts";
+import setAuthToken from "./utils/setAuthToken";
+
+if(localStorage.token){
+  setAuthToken(localStorage.token)
+}
+
 
 const App = () => {
-  // console.log(sampleData)
   return (
     <AuthState>
       <ListState>

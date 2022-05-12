@@ -14,10 +14,21 @@ export default (state,action) => {
     case ADD_LIST:
       return {
         ...state,
-        lists: [action.payload, ...state.contacts],
+        lists: action.payload,
         loading: false
-      }
-      
+      };
+      case GET_LISTS:
+        return {
+          ...state,
+          lists: [...action.payload],
+          loading: false
+        };
+      case CLEAR_LISTS:
+        return {
+          ...state,
+          lists:null,
+          loading:false
+        }
     default:
       return state;
   }

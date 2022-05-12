@@ -38,6 +38,7 @@ export default (state, action) => {
       const { name, username, email } = action.payload;
       return {
         ...state,
+        isAuthenticated: true,
         user: {
           id: action.payload._id,
           name,

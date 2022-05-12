@@ -52,10 +52,31 @@ const ListState = (props) => {
   
   // GET_LISTS
 
+  const getLists = async () => {
+    try {
+      const res = await axios.get("api/lists")
+      dispatch({
+        type: GET_LISTS,
+        payload: res.data
+      })
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.msg
+      })
+    }
+  } 
+
 
   // DELETE_LIST,
   // UPDATE_LIST,
-  // CLEAR_LISTS,
+  // CLEAR_LISTS
+
+  const clearLists = () => {
+    dispatch({
+      type: CLEAR_LISTS
+    })
+  }
   // SET_CURRENT_LIST,
   // CLEAR_CURRENT_LIST,
   // LIST_ERROR
@@ -77,8 +98,9 @@ const ListState = (props) => {
   return (
     <ListContext.Provider value={{
       lists: state.lists,
-      addList
-      
+      addList,
+      getLists,
+      clearLists
     }}>{props.children}</ListContext.Provider>
   );
 };

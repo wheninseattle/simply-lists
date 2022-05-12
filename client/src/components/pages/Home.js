@@ -1,12 +1,17 @@
-import { React, Fragment, useState, useEffect } from "react";
+import { React, Fragment, useState, useEffect, useContext } from "react";
 import List from "../list/List";
 import Lists from "../list/Lists";
 import listData from "../../sampleData/listData";
 import { v4 as uuid } from "uuid";
+import AuthContext from "../../context/auth/authContext";
 
 const Home = (props) => {
   //Load sample data into state
   const sampleData = listData.lists;
+
+  const authContext = useContext(AuthContext);
+
+  const { loadUser } = authContext;
 
   // Initialize App Level State
   const [state, setState] = useState({
@@ -18,6 +23,7 @@ const Home = (props) => {
 
   useEffect(() => {
     sampleData[0] && setState({ ...state, lists: sampleData });
+    loadUser();
   }, []);
 
   const setCurrentList = (listId) => {

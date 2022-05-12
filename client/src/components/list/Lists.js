@@ -1,13 +1,21 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import List from "./List";
 import ListPreview from "./ListPreview";
 import ListForm from "./ListForm";
+import ListContext from "../../context/list/listContext";
 
 const Lists = (props) => {
   const lists = props.lists || [];
   const { currentList, currentItem, state, addItem, editItem, updateItem, deleteItem } = props;
   const { createList, updateList, deleteList } = props;
+  
+  const listContext = useContext(ListContext);
+  const { getLists } = listContext;
+
+  useEffect(()=> {
+    getLists();
+  },[]);
 
   if (lists.length && state.listSelected) {
     return (
