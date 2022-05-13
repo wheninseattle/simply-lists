@@ -4,6 +4,8 @@ import Lists from "../list/Lists";
 import listData from "../../sampleData/listData";
 import { v4 as uuid } from "uuid";
 import AuthContext from "../../context/auth/authContext";
+import ListContext from "../../context/list/listContext";
+import Guest from "./Guest";
 
 const Home = (props) => {
   //Load sample data into state
@@ -11,7 +13,11 @@ const Home = (props) => {
 
   const authContext = useContext(AuthContext);
 
-  const { loadUser } = authContext;
+  const { loadUser,isAuthenticated } = authContext;
+
+  const listContext = useContext(ListContext);
+
+  const { lists } = listContext;
 
   // Initialize App Level State
   const [state, setState] = useState({
@@ -27,14 +33,15 @@ const Home = (props) => {
   }, []);
 
   const setCurrentList = (listId) => {
-    let listIndex = state.lists.indexOf(state.lists.filter((list) => list.listId === listId)[0]);
-    let list = state.lists[listIndex];
+    // let listIndex = state.lists.indexOf(state.lists.filter((list) => list.listId === listId)[0]);
+    // let list = state.lists[listIndex];
+    let list = lists.filter(list => (list._id === listId));
     
     console.table(list)
     setState({
       ...state,
       currentList: list,
-      listSelected: !state.listSelected,
+      listSelected: true,
     });
   };
 
@@ -177,9 +184,12 @@ const Home = (props) => {
 
   return (
     <div className="container">
-      {state.lists.length && (
+      {isAuthenticated ? 
+      <Lists/> :
+      <Guest/>}
+      {/* {state.lists.length && (
         <Lists
-          lists={state.lists}
+          lists={lists}
           setState={setState}
           state={state}
           currentItem={state.currentItem}
@@ -195,7 +205,7 @@ const Home = (props) => {
           updateList={updateList}
           deleteList={deleteList}
         />
-      )}
+      )} */}
     </div>
   );
 };

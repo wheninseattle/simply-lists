@@ -28,6 +28,16 @@ export default (state,action) => {
           ...state,
           lists:null,
           loading:false
+        };
+      case SET_CURRENT_LIST:
+        return {
+          ...state,
+          currentList: action.payload
+        };
+      case CLEAR_CURRENT_LIST:
+        return {
+          ...state,
+          currentList: null
         }
     default:
       return state;

@@ -1,13 +1,19 @@
-import React, { createElement, Fragment, useEffect, useState } from "react";
+import React, { createElement, Fragment, useEffect, useState, useContext } from "react";
 import { v4 as uuid } from "uuid";
 import ListItem from "../listItems/ListItem";
 import AddItem from "../listItems/AddItem";
+import ListContext from "../../context/list/listContext";
+import listContext from "../../context/list/listContext";
 
 //
 const List = (props) => {
   //Destructure Props
   // const { listTitle, listAuthor, listItems } = props;
-  const { listName, listAuthor, items, listId, listDescription } = props.list;
+  
+  const listContext = useContext(ListContext);
+  const {currentList} = listContext
+
+  const {name: listName, user: listAuthor, listItems: items, _id: listId, description:listDescription} = currentList;
   // const { setState } = props;
   // Add List Item
   // const addItem = (item) => {
@@ -23,6 +29,7 @@ const List = (props) => {
 
   return (
     <div className="all-center">
+    <p>I like lists</p>
       <h1>{listName}</h1>
       <h3>A list by: {listAuthor}</h3>
       <p>{listDescription}</p>

@@ -21,7 +21,7 @@ const ListState = (props) => {
 
   const initialState = {
     lists: [],
-    current: null,
+    currentList: null,
     filtered: null,
     error: null
   };
@@ -77,8 +77,21 @@ const ListState = (props) => {
       type: CLEAR_LISTS
     })
   }
-  // SET_CURRENT_LIST,
-  // CLEAR_CURRENT_LIST,
+  // SET_CURRENT_LIST
+
+  const setCurrentList = (list) => {
+    dispatch({
+      type: SET_CURRENT_LIST,
+      payload: list
+    })
+  }
+  // CLEAR_CURRENT_LIST
+
+  const clearCurrentList = () =>{
+    dispatch({
+      type: CLEAR_CURRENT_LIST
+    })
+  }
   // LIST_ERROR
 
   // Add List Item
@@ -98,9 +111,12 @@ const ListState = (props) => {
   return (
     <ListContext.Provider value={{
       lists: state.lists,
+      currentList: state.currentList,
       addList,
       getLists,
-      clearLists
+      clearLists,
+      setCurrentList,
+      clearCurrentList
     }}>{props.children}</ListContext.Provider>
   );
 };
