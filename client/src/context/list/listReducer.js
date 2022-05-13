@@ -47,6 +47,12 @@ export default (state,action) => {
               list._id === action.payload._id ? action.payload : list
             ),
             currentList: action.payload
+          };
+        case DELETE_LIST:
+          return {
+            ...state,
+            lists: state.lists.filter(list => list._id != action.payload._id),
+            currentList: null
           }
     default:
       return state;

@@ -1,32 +1,27 @@
 import React, {
-  createElement,
   Fragment,
-  useEffect,
   useState,
   useContext,
 } from "react";
-import { v4 as uuid } from "uuid";
 import ListItem from "../listItems/ListItem";
 import AddItem from "../listItems/AddItem";
 import ListContext from "../../context/list/listContext";
-import listContext from "../../context/list/listContext";
 import ListForm from "./ListForm";
 
-//
 const List = (props) => {
   const [state, setState] = useState({
     editList: false,
   });
 
   const listContext = useContext(ListContext);
-  const { currentList } = listContext;
+  const { currentList,deleteList } = listContext;
 
   const {
-    name: listName,
-    user: listAuthor,
-    listItems: items,
     _id: listId,
+    user: listAuthor,
+    name: listName,
     description: listDescription,
+    listItems: items,
   } = currentList;
 
   const onEdit = () => {
@@ -42,6 +37,10 @@ const List = (props) => {
       ...state,
       editList: false
     })
+  }
+
+  const onDelete = () => {
+    deleteList(currentList._id);
   }
   // const { setState } = props;
   // Add List Item
@@ -78,7 +77,7 @@ const List = (props) => {
           <button className="btn btn-icon" onClick={onEdit}>
             <i className="fa-solid fa-pen"></i>
           </button>
-          <button className="btn btn-icon">
+          <button className="btn btn-icon" onClick={onDelete}>
             <i className="fa-solid fa-circle-xmark"></i>
           </button>
           <button className="btn btn-icon">

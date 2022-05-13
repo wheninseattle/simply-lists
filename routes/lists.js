@@ -96,7 +96,7 @@ router.delete("/:id", auth, async (req, res) => {
         }
       await List.findByIdAndRemove(req.params.id);
     
-        res.json({msg:'Contact removed'});
+        res.json({msg:'Contact removed',_id:req.params.id});
       } catch (err) {
           console.error(err.message);
           res.status(500).send("Server Error");
