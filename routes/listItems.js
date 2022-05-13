@@ -82,18 +82,22 @@ router.put("/:listId/:itemId", auth, async (req, res) => {
 // @route    DELETE  api/lists/:id
 // @desc     Delete a list
 // @access   Private
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:listId/:itemId", auth, async (req, res) => {
     try {
-        let list = await List.findById(req.params.id);
+        let list = await List.findByIdAndUpdate(req.params.listId,{
+          $pull: {listItems: {_id: req.params.itemId}}
+        },{
+          new: true,
+          runValidators: true
+        });
     
         if (!list) return res.status(400).json({ msg: "List not found" });
         // Make sure user owns list
         if (list.user.toString() != req.user.id) {
           return res.status(401).json({ msg: "Not authorized" });
         }
-      await List.findByIdAndRemove(req.params.id);
-    
-        res.json({msg:'Contact removed',_id:req.params.id});
+
+        res.json({msg:'List Item Removed',_id:req.params.id});
       } catch (err) {
           console.error(err.message);
           res.status(500).send("Server Error");
