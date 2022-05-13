@@ -29,7 +29,7 @@ const Home = (props) => {
 
   useEffect(() => {
     sampleData[0] && setState({ ...state, lists: sampleData });
-    loadUser();
+    // loadUser();
   }, []);
 
   const setCurrentList = (listId) => {

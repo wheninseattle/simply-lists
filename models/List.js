@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const listItem = require('../models/ListItem');
+const ListItemSchema = require('../models/ListItem');
+
 
 const ListSchema = mongoose.Schema({
     user: {
@@ -18,7 +19,7 @@ const ListSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    listItems: [{type: mongoose.Schema.Types.ObjectId, ref: 'listItem'}]
+    listItems: [ListItemSchema]
 });
 
 module.exports = mongoose.model('list', ListSchema)

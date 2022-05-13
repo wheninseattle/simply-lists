@@ -17,9 +17,10 @@ app.use(express.json({extended: false}))
 app.get('/', (req,res) => res.json({msg:'Welcome to the Just Lists API...'}))
 
 // Define API routes
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/lists', require('./routes/lists'));
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/listItems', require('./routes/listItems'));
 
 const PORT = process.env.PORT || 5000;
 
