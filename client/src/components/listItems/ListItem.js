@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import ListContext from "../../context/list/listContext";
+import AlertContext from "../../context/alert/alertContext";
 
 const ListItem = (props) => {
   const { itemName, itemDescription, itemID, listId } = props.item;
+
+  // Initialize and destructure list context
+  const listContext = useContext(ListContext);
+  const { addListItem } = listContext;
+
+  
+  // Initialize and destructure alert context
+
 
   const [editItem, setEditItem] = useState({
     editItem: false,

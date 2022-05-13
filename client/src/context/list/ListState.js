@@ -13,11 +13,18 @@ import {
   SET_CURRENT_LIST,
   CLEAR_CURRENT_LIST,
   LIST_ERROR,
+  ADD_LIST_ITEM,
+  GET_LIST_ITEMS,
+  UPDATE_LIST_ITEM,
+  DELETE_LIST_ITEM,
+  SET_CURRENT_LIST_ITEM,
+  CLEAR_CURRENT_LIST_ITEM
 } from "../types";
 
 const ListState = (props) => {
   const initialState = {
     lists: [],
+    listItems: [],
     currentList: null,
     filtered: null,
     error: null,
@@ -34,7 +41,7 @@ const ListState = (props) => {
       },
     };
     try {
-      const res = await axios.post("api/lists", list, config);
+      const res = await axios.post("api/list", list, config);
       dispatch({
         type: ADD_LIST,
         payload: res.data,
@@ -128,6 +135,27 @@ const ListState = (props) => {
   // LIST_ERROR
 
   // Add List Item
+  const addListItem = async (listItem) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+    const res = await axios.post("api/listItems",listItem,config);
+    dispatch({
+      type:ADD_LIST_ITEM,
+      payload:res.data
+    })
+      
+    } catch (error) {
+      dispatch({
+        type:LIST_ERROR,
+        payload:error.response.msg
+      })
+      
+    }
+  }
 
   // Delete List Item
 
@@ -152,7 +180,8 @@ const ListState = (props) => {
         setCurrentList,
         clearCurrentList,
         updateList,
-        deleteList
+        deleteList,
+        addListItem
       }}
     >
       {props.children}

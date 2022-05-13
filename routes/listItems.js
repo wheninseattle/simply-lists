@@ -19,7 +19,7 @@ router.post(
     //   console.log(`We got some errors here: ${errors.array()}`)
     //   return res.status(400).json({ errors: errors.array() });
     // }
-    const { name, description,listId } = req.body;
+    const { name,description,listId } = req.body;
     try {
       const list = await List.findById(listId);
       const listItems = list.listItems;

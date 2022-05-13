@@ -1,8 +1,6 @@
 import React, { Fragment, useState, useEffect,useContext } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare } from "@fortawesome/free-regular-svg-icons";
 import AlertContext from "../../context/alert/alertContext";
-import ListState from "../../context/list/ListState";
+import ListContext from "../../context/list/listContext";
 
 const AddItem = (props) => {
   // Create state for AddItem Component
@@ -16,6 +14,9 @@ const AddItem = (props) => {
 
  //Alert Context
  const alertContext = useContext(AlertContext);
+
+ const listContext = useContext(ListContext);
+ const { addListItem } = listContext;
 
 
 
@@ -41,12 +42,17 @@ const AddItem = (props) => {
       alertContext.setAlert(msg,'danger')
       console.log("Item Name Required!");
     } else if (!addForm.updating) {
-      props.addItem(
-        addForm.itemName,
-        addForm.itemDescription,
-        props.listAuthor,
-        props.listId
-        );
+      addListItem({
+        name: addForm.itemName,
+        description: addForm.itemDescription,
+        listId: props.listId
+      })
+      // props.addItem(
+      //   addForm.itemName,
+      //   addForm.itemDescription,
+      //   props.listAuthor,
+      //   props.listId
+      //   );
         setAddForm({
           itemName: "",
           itemDescription: "",

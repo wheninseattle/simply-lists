@@ -6,7 +6,8 @@ import {
   CLEAR_LISTS,
   SET_CURRENT_LIST,
   CLEAR_CURRENT_LIST,
-  LIST_ERROR
+  LIST_ERROR,
+  ADD_LIST_ITEM
 } from "../types";
 
 export default (state,action) => {
@@ -53,7 +54,12 @@ export default (state,action) => {
             ...state,
             lists: state.lists.filter(list => list._id != action.payload._id),
             currentList: null
-          }
+          };
+          case ADD_LIST_ITEM:
+            return {
+              ...state,
+              listItems: [action.payload, ...state.listItems]
+            }
     default:
       return state;
   }
