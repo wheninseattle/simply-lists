@@ -1,19 +1,48 @@
-import React, { createElement, Fragment, useEffect, useState, useContext } from "react";
+import React, {
+  createElement,
+  Fragment,
+  useEffect,
+  useState,
+  useContext,
+} from "react";
 import { v4 as uuid } from "uuid";
 import ListItem from "../listItems/ListItem";
 import AddItem from "../listItems/AddItem";
 import ListContext from "../../context/list/listContext";
 import listContext from "../../context/list/listContext";
+import ListForm from "./ListForm";
 
 //
 const List = (props) => {
-  //Destructure Props
-  // const { listTitle, listAuthor, listItems } = props;
-  
-  const listContext = useContext(ListContext);
-  const {currentList} = listContext
+  const [state, setState] = useState({
+    editList: false,
+  });
 
-  const {name: listName, user: listAuthor, listItems: items, _id: listId, description:listDescription} = currentList;
+  const listContext = useContext(ListContext);
+  const { currentList } = listContext;
+
+  const {
+    name: listName,
+    user: listAuthor,
+    listItems: items,
+    _id: listId,
+    description: listDescription,
+  } = currentList;
+
+  const onEdit = () => {
+    setState({
+      ...state,
+      editList: true
+    })
+  }
+
+  const cancelEdit = () => {
+    console.log('Canceling Edit...')
+    setState({
+      ...state,
+      editList: false
+    })
+  }
   // const { setState } = props;
   // Add List Item
   // const addItem = (item) => {
@@ -26,16 +55,27 @@ const List = (props) => {
   //   setItemState([...itemState.listItems, newItem]);
   //   // listItems = itemState.listItems;
   // };
+  const listHeader = (
+    <Fragment>
+      <div id="list-header" className="my-2">
+        <h1>{listName}</h1>
+        <h3>A list by: {listAuthor}</h3>
+        <p>{listDescription}</p>
+      </div>
+    </Fragment>
+  );
+  const listHeaderEdit = (
+    <Fragment>
+      <ListForm editExisting={true} cancelEdit={cancelEdit}/>
+    </Fragment>
+  );
 
   return (
     <div className="all-center">
-    <p>I like lists</p>
-      <h1>{listName}</h1>
-      <h3>A list by: {listAuthor}</h3>
-      <p>{listDescription}</p>
+      {(state.editList) ? listHeaderEdit : listHeader}
       <div>
         <div id="item-options" className="flex-h" style={{ width: "100%" }}>
-          <button className="btn btn-icon">
+          <button className="btn btn-icon" onClick={onEdit}>
             <i className="fa-solid fa-pen"></i>
           </button>
           <button className="btn btn-icon">
@@ -56,32 +96,32 @@ const List = (props) => {
       </div>
       <ul className="all-center">
         {items.map((item) => {
-          console.log(item.itemID)
-          console.log(props.state.currentItem)
-          if(item.itemID === props.state.currentItem.itemId){
+          console.log(item.itemID);
+          console.log(props.state.currentItem);
+          if (item.itemID === props.state.currentItem.itemId) {
             return (
-              <AddItem 
+              <AddItem
                 key={props.state.currentItem.itemId}
                 itemName={props.state.currentItem.itemName}
                 itemDescription={props.state.currentItem.itemDescription}
                 listId={props.state.currentItem.listId}
                 itemId={props.state.currentItem.itemId}
                 updateItem={props.updateItem}
-                clearCurrentItem = {props.clearCurrentItem}
+                clearCurrentItem={props.clearCurrentItem}
                 addItem={props.addItem}
               />
-            )
-          }else{
-              console.log(item.itemID)
-          return (
-            <ListItem
-              key={item.itemID}
-              item={item}
-              editItem={props.editItem}
-              updateItem={props.updateItem}
-              deleteItem={props.deleteItem}
-            />
-          );
+            );
+          } else {
+            console.log(item.itemID);
+            return (
+              <ListItem
+                key={item.itemID}
+                item={item}
+                editItem={props.editItem}
+                updateItem={props.updateItem}
+                deleteItem={props.deleteItem}
+              />
+            );
           }
         })}
       </ul>

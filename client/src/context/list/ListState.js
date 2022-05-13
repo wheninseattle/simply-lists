@@ -68,8 +68,28 @@ const ListState = (props) => {
   } 
 
 
-  // DELETE_LIST,
-  // UPDATE_LIST,
+  // UPDATE_LIST
+
+  const updateList = async (list) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.put(`api/lists/${list.id}`, list, config)
+      dispatch({
+        type: UPDATE_LIST,
+        payload: res.data
+      })
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.msg
+      })
+    }
+  }
+  // DELETE_LIST
   // CLEAR_LISTS
 
   const clearLists = () => {
@@ -116,7 +136,8 @@ const ListState = (props) => {
       getLists,
       clearLists,
       setCurrentList,
-      clearCurrentList
+      clearCurrentList,
+      updateList
     }}>{props.children}</ListContext.Provider>
   );
 };

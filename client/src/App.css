@@ -182,17 +182,31 @@ hr {
  line-height: 1rem;
 }
 
+
+.add-card-list{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+  height: fit-content;
+}
+
 .add-card{
   /* flex-direction: column; */
-  width: 100%;
+  width: 60%;
   /* justify-content:center; */
   /* align-items: center; */
 }
 
-.add-card input{
+.add-card input,textarea{
   background-color: var(--light-color);
-  border: none;
+  /* border: none; */
+  border: var(--medlight-color) 1px solid;
+  border-radius: var(--card-radius);
+  height: fit-content;
   outline: none;
+  margin: .5rem .5rem .5rem .5rem;
+
 }
 
 
@@ -523,10 +537,12 @@ input[type='date'],
 select,
 textarea {
   display: block;
-  width: 100%;
+  width: 95%;
   padding: 0.4rem;
+  margin: .5rem auto 1rem;
   /* font-size: 1.2rem; */
   /* border: 1px solid #ccc; */
+  resize: none;
 }
 
 input[type='submit'],

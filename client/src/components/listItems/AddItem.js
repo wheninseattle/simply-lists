@@ -88,6 +88,7 @@ const AddItem = (props) => {
         <button className="btn btn-add" onClick={toggleAddForm}>
           +
         </button>
+        
       )}
       {showForm && (
         <div className={`my-1 p-1 add-card`} itemID="add-form-card">

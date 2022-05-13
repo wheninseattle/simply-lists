@@ -14,7 +14,8 @@ export default (state,action) => {
     case ADD_LIST:
       return {
         ...state,
-        lists: action.payload,
+        lists: [action.payload, ...state.lists],
+        currentList: action.payload,
         loading: false
       };
       case GET_LISTS:
@@ -38,7 +39,15 @@ export default (state,action) => {
         return {
           ...state,
           currentList: null
-        }
+        };
+        case UPDATE_LIST:
+          return {
+            ...state,
+            lists: state.lists.map(list => 
+              list._id === action.payload._id ? action.payload : list
+            ),
+            currentList: action.payload
+          }
     default:
       return state;
   }
