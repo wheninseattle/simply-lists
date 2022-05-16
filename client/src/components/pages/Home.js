@@ -30,6 +30,7 @@ const Home = (props) => {
     if (localStorage.token) {
       console.log('We has token...')
       authContext.loadUser();
+      listContext.getAllLists();
     }
   }, []);
 

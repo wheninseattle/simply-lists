@@ -13,19 +13,13 @@ router.post(
   "/",
   auth,
   async (req, res) => {
-    console.log('Did we get here?')
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //   console.log(`We got some errors here: ${errors.array()}`)
-    //   return res.status(400).json({ errors: errors.array() });
-    // }
 
-    const { name, description } = req.body;
-    console.table(req.body)
+    const { name, description,username } = req.body;
     try {
       const newList = new List({
         name,
         description,
+        username,
         user: req.user.id, //Get from auth middleware
       });
       console.table(newList);
@@ -44,6 +38,19 @@ router.post(
 router.get("/", auth, async (req, res) => {
   try {
     const lists = await List.find({ user: req.user.id }).sort({ date: -1 });
+    res.json(lists);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    Get  api/lists/all
+// @desc     Get all public lists
+// @access   Public
+router.get("/all",  async (req, res) => {
+  try {
+    const lists = await List.find({ visibility: "public" }).sort({ date: -1 });
     res.json(lists);
   } catch (err) {
     console.error(err);

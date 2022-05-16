@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, Fragment } from "react";
 import ListContext from "../../context/list/listContext";
 import AlertContext from "../../context/alert/alertContext";
+import AuthContext from "../../context/auth/authContext";
 
 const ListForm = (props) => {
   //Initialize and destructure component level state
@@ -13,16 +14,18 @@ const ListForm = (props) => {
     showForm: props.editExisting ? true : false,
     existingList: props.editExisting ? true : false,
   });
-
+  
   const { id, name, description, username, showForm } = state;
-
+  
   // Initialize and destructure list context
   const listContext = useContext(ListContext);
   const { addList, currentList, updateList } = listContext;
-
+  
   // Initialize and destructure alert context
   const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
+  
+  const authContext = useContext(AuthContext);
 
   // If editing existing list, load existing into component state
   useEffect(() => {
@@ -54,6 +57,7 @@ const ListForm = (props) => {
         const listOut = {
           name: name,
           description: description,
+          username: authContext.user.username
         };
         console.table(listOut)
         addList(listOut);

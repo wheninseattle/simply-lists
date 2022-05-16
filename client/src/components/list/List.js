@@ -29,6 +29,7 @@ const List = (props) => {
     name: listName,
     description: listDescription,
     listItems: items,
+    username,
   } = currentList;
 
   const onEdit = () => {
@@ -57,7 +58,7 @@ const List = (props) => {
     <Fragment>
       <div id="list-header" className="my-2">
         <h1>{listName}</h1>
-        <h3>A list by: {listAuthor}</h3>
+        <h3>A list by: {username}</h3>
         <p>{listDescription}</p>
       </div>
     </Fragment>

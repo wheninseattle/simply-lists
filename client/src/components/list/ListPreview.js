@@ -12,7 +12,7 @@ const ListPreview = (props) => {
     <div>
       <button className="btn" onClick={onSetCurrent}>
         <h2>{list.name}</h2>
-        <p>{list.user}</p>
+        <p>{list.username}</p>
         <p>{list.description}</p>
       </button>
     </div>

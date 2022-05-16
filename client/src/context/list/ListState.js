@@ -72,6 +72,20 @@ const ListState = (props) => {
     }
   };
 
+  // Get All public Lists
+
+  const getAllLists = async () => {
+    try {
+      const res = await axios.get("api/lists/all");
+      console.table(res.data)
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.message,
+      });
+    }
+  };
+
   // Update List
 
   const updateList = async (list) => {
@@ -261,6 +275,7 @@ const ListState = (props) => {
         clearCurrentListItem,
         updateListItem,
         deleteListItem,
+        getAllLists
       }}
     >
       {props.children}
