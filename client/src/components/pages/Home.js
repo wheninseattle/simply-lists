@@ -1,5 +1,4 @@
-import { React, Fragment, useState, useEffect, useContext } from "react";
-import List from "../list/List";
+import { React, useState, useEffect, useContext } from "react";
 import Lists from "../list/Lists";
 import listData from "../../sampleData/listData";
 import { v4 as uuid } from "uuid";
@@ -28,8 +27,10 @@ const Home = (props) => {
   });
 
   useEffect(() => {
-    sampleData[0] && setState({ ...state, lists: sampleData });
-    // loadUser();
+    if (localStorage.token) {
+      console.log('We has token...')
+      authContext.loadUser();
+    }
   }, []);
 
   const setCurrentList = (listId) => {

@@ -55,6 +55,7 @@ const ListForm = (props) => {
           name: name,
           description: description,
         };
+        console.table(listOut)
         addList(listOut);
       }
       //Reset state

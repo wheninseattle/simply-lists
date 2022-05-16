@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
-const { check, validationResult } = require("express-validator");
+// const { check, validationResult } = require("express-validator");
 
 const User = require("../models/User");
 const List = require("../models/List");
@@ -75,7 +75,7 @@ router.put("/:id", auth, async (req, res) => {
       { $set: listFields },
       { new: true }
     );
-
+ 
     res.json(list);
   } catch (err) {}
   console.error(err.message);

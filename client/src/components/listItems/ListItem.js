@@ -3,11 +3,11 @@ import ListContext from "../../context/list/listContext";
 import AlertContext from "../../context/alert/alertContext";
 
 const ListItem = (props) => {
-  const { itemName, itemDescription, itemID, listId } = props.item;
+  const { name, description, _id, list } = props.item;
 
   // Initialize and destructure list context
   const listContext = useContext(ListContext);
-  const { addListItem } = listContext;
+  const { setCurrentListItem, clearCurrentListItem,addListItem,updateListItem, deleteListItem } = listContext;
 
   
   // Initialize and destructure alert context
@@ -15,20 +15,20 @@ const ListItem = (props) => {
 
   const [editItem, setEditItem] = useState({
     editItem: false,
-    itemName: "",
-    itemID: "",
-    itemDescription: "",
+    name: "",
+    _id: "",
+    description: "",
   });
 
   // const onEdit = (e) => {
   //   setEditItem({
   //     ...editItem,
-  //     itemID,
-  //     itemName,
-  //     itemDescription,
+  //     _id,
+  //     name,
+  //     description,
   //     editItem: !editItem.editItem,
   //   });
-  //   console.log(itemName);
+  //   console.log(name);
   // };
 
   const onChange = (e) => {
@@ -38,33 +38,33 @@ const ListItem = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     props.editItem(
-      props.item.listId,
-      props.item.itemID,
-      editItem.itemName,
-      editItem.itemDescription
+      props.item.list,
+      props.item._id,
+      editItem.name,
+      editItem.description
     );
     onEdit({ editItem: !editItem.editItem });
   };
 
   const onDelete = (e) => {
-    console.log(`ListId: ${listId}`);
-    console.log(`ItemId: ${itemID}`);
-    props.deleteItem(listId, itemID);
+    console.log(`ListId: ${list}`);
+    console.log(`ItemId: ${_id}`);
+    props.deleteItem(list, _id);
   };
 
   const onEdit = ()=> {
-    console.log(props)
-    props.editItem(listId,itemID,itemName,itemDescription);
+    console.log("editing!")
+    setCurrentListItem(props.item);
   }
 
   return (
     <div onClick={onEdit} className="list-item">
       <div className="item-info">
         <div id="item-title" className="">
-          <h3 className="item-title" >{itemName}</h3>
+          <h3 className="item-title" >{name}</h3>
         </div>
         <div className="item-description" id="item-description">
-          <p>{itemDescription}</p>
+          <p>{description}</p>
         </div>
       </div>
     </div>

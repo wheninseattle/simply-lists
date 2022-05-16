@@ -7,18 +7,13 @@ const { check, validationResult } = require("express-validator");
 const List = require("../models/List");
 
 
-// @route    POST  api/lists
-// @desc     Create a new list
+// @route    POST  api/listItems
+// @desc     Create a new list item
 // @access   Public
 router.post(
   "/",
   auth,
   async (req, res) => {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //   console.log(`We got some errors here: ${errors.array()}`)
-    //   return res.status(400).json({ errors: errors.array() });
-    // }
     const { name,description,listId } = req.body;
     try {
       const list = await List.findById(listId);
@@ -30,7 +25,8 @@ router.post(
         list: listId
       })
       const updated = await list.save();
-      res.json(updated);
+      const newItem = updated.listItems[(updated.listItems.length-1)]
+      res.json(newItem);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -38,7 +34,7 @@ router.post(
   }
 );
 
-// @route    Get  api/lists
+// @route    Get  api/listsItems
 // @desc     Get private lists
 // @access   Public
 router.get("/:id", auth, async (req, res) => {
@@ -57,11 +53,6 @@ router.get("/:id", auth, async (req, res) => {
 // @access   Private
 router.put("/:listId/:itemId", auth, async (req, res) => {
   const { name, description } = req.body;
-
-  //Build list object
-  const itemFields = {};
-  if (name) itemFields.name = name;
-  if (description) itemFields.description = description;
   try {
     let list = await List.findById(req.params.listId);
     if (!list) return res.status(400).json({ msg: "List not found" });
@@ -96,8 +87,7 @@ router.delete("/:listId/:itemId", auth, async (req, res) => {
         if (list.user.toString() != req.user.id) {
           return res.status(401).json({ msg: "Not authorized" });
         }
-
-        res.json({msg:'List Item Removed',_id:req.params.id});
+        res.json({msg:'List Item Removed',id:req.params.itemId});
       } catch (err) {
           console.error(err.message);
           res.status(500).send("Server Error");

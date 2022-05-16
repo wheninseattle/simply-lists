@@ -1,10 +1,6 @@
-import React, {
-  Fragment,
-  useState,
-  useContext,
-} from "react";
+import React, { Fragment, useState, useContext } from "react";
 import ListItem from "../listItems/ListItem";
-import AddItem from "../listItems/AddItem";
+import ItemForm from "../listItems/ItemForm";
 import ListContext from "../../context/list/listContext";
 import ListForm from "./ListForm";
 
@@ -14,7 +10,18 @@ const List = (props) => {
   });
 
   const listContext = useContext(ListContext);
-  const { currentList,deleteList } = listContext;
+  const {
+    currentList,
+    setCurrentList,
+    clearCurrentList,
+    updateList,
+    deleteList,
+    listItems,
+    currentListItem,
+    setCurrentListItem,
+    clearCurrentListItem,
+    updateListItem,
+  } = listContext;
 
   const {
     _id: listId,
@@ -27,33 +34,25 @@ const List = (props) => {
   const onEdit = () => {
     setState({
       ...state,
-      editList: true
-    })
-  }
+      editList: true,
+    });
+  };
 
   const cancelEdit = () => {
-    console.log('Canceling Edit...')
+    console.log("Canceling Edit...");
     setState({
       ...state,
-      editList: false
-    })
+      editList: false,
+    });
+  };
+
+  const onEditItem = () => {
+
   }
 
   const onDelete = () => {
     deleteList(currentList._id);
-  }
-  // const { setState } = props;
-  // Add List Item
-  // const addItem = (item) => {
-  //   const newItem = {
-  //     id: uuid(),
-  //     itemName: item.itemName,
-  //     itemDescription: item.itemDescription,
-  //     itemAuthor: item.itemAuthor,
-  //   };
-  //   setItemState([...itemState.listItems, newItem]);
-  //   // listItems = itemState.listItems;
-  // };
+  };
   const listHeader = (
     <Fragment>
       <div id="list-header" className="my-2">
@@ -65,13 +64,13 @@ const List = (props) => {
   );
   const listHeaderEdit = (
     <Fragment>
-      <ListForm editExisting={true} cancelEdit={cancelEdit}/>
+      <ListForm editExisting={true} cancelEdit={cancelEdit} />
     </Fragment>
   );
 
   return (
     <div className="all-center">
-      {(state.editList) ? listHeaderEdit : listHeader}
+      {state.editList ? listHeaderEdit : listHeader}
       <div>
         <div id="item-options" className="flex-h" style={{ width: "100%" }}>
           <button className="btn btn-icon" onClick={onEdit}>
@@ -83,48 +82,23 @@ const List = (props) => {
           <button className="btn btn-icon">
             <i className="fa-solid fa-comments"></i>
           </button>
-          <button className="btn btn-icon">
-            <i className="fa-solid fa-circle-up"></i>
-          </button>
-          <div>5</div>
-          <button className="btn btn-icon">
-            <i className="fa-solid fa-circle-down"></i>
-          </button>
-          <i className="fa-regular fa-down"></i>
         </div>
       </div>
       <ul className="all-center">
-        {items.map((item) => {
-          console.log(item.itemID);
-          console.log(props.state.currentItem);
-          if (item.itemID === props.state.currentItem.itemId) {
-            return (
-              <AddItem
-                key={props.state.currentItem.itemId}
-                itemName={props.state.currentItem.itemName}
-                itemDescription={props.state.currentItem.itemDescription}
-                listId={props.state.currentItem.listId}
-                itemId={props.state.currentItem.itemId}
-                updateItem={props.updateItem}
-                clearCurrentItem={props.clearCurrentItem}
-                addItem={props.addItem}
-              />
-            );
-          } else {
-            console.log(item.itemID);
-            return (
-              <ListItem
-                key={item.itemID}
-                item={item}
-                editItem={props.editItem}
-                updateItem={props.updateItem}
-                deleteItem={props.deleteItem}
-              />
-            );
-          }
-        })}
+        {currentListItem != null
+          ? listItems.map((item) => {
+              if (currentListItem._id === item._id) {
+                return <ItemForm key={item._id} item={item} />;
+              } else {
+                return <ListItem key={item._id} item={item} />;
+              }
+            })
+          : listItems &&
+            listItems.map((item) => {
+              return <ListItem key={item._id} onClick={onEdit} item={item} />;
+            })}
       </ul>
-      <AddItem
+      <ItemForm
         addItem={props.addItem}
         listId={listId}
         listAuthor={listAuthor}

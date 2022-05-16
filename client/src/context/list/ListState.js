@@ -1,5 +1,4 @@
 import React, { useReducer } from "react";
-import { v4 as uuid } from "uuid";
 import ListContext from "./listContext";
 import listReducer from "./listReducer";
 import axios from "axios";
@@ -18,7 +17,7 @@ import {
   UPDATE_LIST_ITEM,
   DELETE_LIST_ITEM,
   SET_CURRENT_LIST_ITEM,
-  CLEAR_CURRENT_LIST_ITEM
+  CLEAR_CURRENT_LIST_ITEM,
 } from "../types";
 
 const ListState = (props) => {
@@ -26,14 +25,16 @@ const ListState = (props) => {
     lists: [],
     listItems: [],
     currentList: null,
+    currentListItem: null,
     filtered: null,
     error: null,
   };
 
-  // Initializing state and dispatch. State allows us to access anything in our state and dispath allows us to use the reducer
+  // Initializing state and dispatch.
   const [state, dispatch] = useReducer(listReducer, initialState);
 
   // Add List
+
   const addList = async (list) => {
     const config = {
       headers: {
@@ -41,7 +42,7 @@ const ListState = (props) => {
       },
     };
     try {
-      const res = await axios.post("api/list", list, config);
+      const res = await axios.post("/api/lists", list, config);
       dispatch({
         type: ADD_LIST,
         payload: res.data,
@@ -54,7 +55,7 @@ const ListState = (props) => {
     }
   };
 
-  // GET_LISTS
+  // Get Lists
 
   const getLists = async () => {
     try {
@@ -66,12 +67,12 @@ const ListState = (props) => {
     } catch (error) {
       dispatch({
         type: LIST_ERROR,
-        payload: error.response.msg,
+        payload: error.response.message,
       });
     }
   };
 
-  // UPDATE_LIST
+  // Update List
 
   const updateList = async (list) => {
     const config = {
@@ -88,22 +89,25 @@ const ListState = (props) => {
     } catch (error) {
       dispatch({
         type: LIST_ERROR,
-        payload: error.response.msg,
+        payload: error.response.message,
       });
     }
   };
-  // DELETE_LIST
+
+  // Delete List
+
   const deleteList = async (id) => {
     try {
       const res = await axios.delete(`api/lists/${id}`);
+      console.table(res);
       dispatch({
         type: DELETE_LIST,
         payload: res.data,
       });
-    } catch(error) {
+    } catch (error) {
       dispatch({
         type: LIST_ERROR,
-        payload: error.response.msg,
+        payload: error.response.message,
       });
     }
   };
@@ -142,28 +146,97 @@ const ListState = (props) => {
       },
     };
     try {
-    const res = await axios.post("api/listItems",listItem,config);
-    dispatch({
-      type:ADD_LIST_ITEM,
-      payload:res.data
-    })
-      
+      const res = await axios.post("api/listItems", listItem, config);
+      console.table(res.data);
+      dispatch({
+        type: ADD_LIST_ITEM,
+        payload: res.data,
+      });
     } catch (error) {
       dispatch({
-        type:LIST_ERROR,
-        payload:error.response.msg
-      })
-      
+        type: LIST_ERROR,
+        payload: error.response.message,
+      });
     }
-  }
+  };
+
+  //Get List Items
+
+  const getListItems = async (listId, userId) => {
+    try {
+      const res = await axios.get(`api/listItems/${listId}`);
+      dispatch({
+        type: GET_LIST_ITEMS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.table(error);
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.message,
+      });
+    }
+  };
 
   // Delete List Item
 
+  const deleteListItem = async (item) => {
+    try {
+      const res = await axios.delete(`api/listItems/${item.list}/${item._id}`);
+      dispatch({
+        type: DELETE_LIST_ITEM,
+        payload: res.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.message,
+      });
+    }
+  };
+
   // Set Current List Item
+
+  const setCurrentListItem = (item) => {
+    dispatch({
+      type: SET_CURRENT_LIST_ITEM,
+      payload: item,
+    });
+  };
 
   // Clear Current List Item
 
+  const clearCurrentListItem = () => {
+    dispatch({
+      type: CLEAR_CURRENT_LIST_ITEM,
+    });
+  };
   // Update List Item
+
+  const updateListItem = async (item) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.put(
+        `api/listItems/${item.list}/${item._id}`,
+        item,
+        config
+      );
+      dispatch({
+        type: UPDATE_LIST_ITEM,
+        payload: res.data,
+      });
+      clearCurrentListItem();
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.message,
+      });
+    }
+  };
 
   // Filter List Items
 
@@ -174,6 +247,8 @@ const ListState = (props) => {
       value={{
         lists: state.lists,
         currentList: state.currentList,
+        listItems: state.listItems,
+        currentListItem: state.currentListItem,
         addList,
         getLists,
         clearLists,
@@ -181,7 +256,12 @@ const ListState = (props) => {
         clearCurrentList,
         updateList,
         deleteList,
-        addListItem
+        addListItem,
+        getListItems,
+        setCurrentListItem,
+        clearCurrentListItem,
+        updateListItem,
+        deleteListItem,
       }}
     >
       {props.children}
