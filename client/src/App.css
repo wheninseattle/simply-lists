@@ -3,6 +3,7 @@
 /* Global Styles */
 :root {
   --primary-color: #3498Db;
+  --accent-color: #F26101;
   --dark-color: #323232;
   --medium-color: #4a4a4a;
   --medlight-color: #bababa;
@@ -331,6 +332,22 @@ hr {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 1rem;
+}
+
+.avatar {
+  border: solid 1px var(--light-color);
+  border-radius: 50%;  
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--accent-color);
+}
+
+.avatar-lg {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.25rem;
 }
 
 .btn {
