@@ -56,7 +56,7 @@ export default (state, action) => {
     case DELETE_LIST:
       return {
         ...state,
-        lists: state.lists.filter((list) => list._id !== action.payload),
+        lists: state.lists.filter((list) => list._id !== action.payload._id),
         currentList: null,
       };
     case ADD_LIST_ITEM:

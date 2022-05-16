@@ -99,7 +99,6 @@ const ListState = (props) => {
   const deleteList = async (id) => {
     try {
       const res = await axios.delete(`api/lists/${id}`);
-      console.table(res);
       dispatch({
         type: DELETE_LIST,
         payload: res.data,

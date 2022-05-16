@@ -38,7 +38,6 @@ const Lists = (props) => {
           className="btn"
           onClick={() => {
             clearCurrentList();
-            props.clearCurrentList();
           }}
         >
           Back To All Lists
