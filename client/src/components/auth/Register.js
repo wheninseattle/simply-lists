@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -18,7 +19,7 @@ const Register = () => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
 
- const { register } = authContext;
+ const { register,isAuthenticated } = authContext;
  const { setAlert } = alertContext;
 
   const onChange = (e) => {
@@ -38,6 +39,15 @@ const Register = () => {
       })
     }
   };
+  // Initialize useNavigate
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    //Redirect if already authenticated
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  },[]);
 
   return (
     <div className="form-container">
