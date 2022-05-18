@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
+import Explore from "./components/pages/Explore";
 import Register from "./components/auth/Register";
 import MyLists from "./components/pages/MyLists";
 import AuthState from "./context/auth/AuthState";
@@ -31,6 +32,7 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
+                  <Route path="/explore" element={<Explore />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/mylists" element={<MyLists/>} />

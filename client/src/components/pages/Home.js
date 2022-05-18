@@ -11,12 +11,12 @@ const Home = () => {
 
   const listContext = useContext(ListContext);
 
-  const { getAllLists } = listContext;
+  // const { getAllLists } = listContext;
 
   useEffect(() => {
     if (localStorage.token) {
       loadUser();
-      getAllLists();
+      // getAllLists();
     }
   }, []);
 

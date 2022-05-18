@@ -4,9 +4,16 @@ import ListPreview from "./ListPreview";
 import ListForm from "./ListForm";
 import ListContext from "../../context/list/listContext";
 
-const Lists = () => {
+const Lists = (props) => {
   const listContext = useContext(ListContext);
-  const { getLists, currentList, clearCurrentList, lists } = listContext;
+  const { getLists, currentList, clearCurrentList } = listContext;
+
+  let lists;
+  if(props.lists){
+    lists = props.lists
+  }else{
+    lists = listContext.lists;
+  };
 
   useEffect(() => {
     getLists();

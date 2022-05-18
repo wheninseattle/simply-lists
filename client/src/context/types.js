@@ -17,6 +17,9 @@ export const GET_LIST_ITEMS = 'GET_LIST_ITEMS';
 export const SET_CURRENT_LIST_ITEM = 'SET_CURRENT_LIST_ITEM';
 export const CLEAR_CURRENT_LIST_ITEM = 'CLEAR_CURRENT_LIST_ITEM';
 
+// Public Lists
+export const GET_PUBLIC_LISTS = 'GET_PUBLIC_LISTS';
+
 
 // List Utilities
 

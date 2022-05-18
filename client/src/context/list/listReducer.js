@@ -12,6 +12,7 @@ import {
   SET_CURRENT_LIST_ITEM,
   CLEAR_CURRENT_LIST_ITEM,
   DELETE_LIST_ITEM,
+  GET_PUBLIC_LISTS,
 } from "../types";
 
 export default (state, action) => {
@@ -88,6 +89,11 @@ export default (state, action) => {
       return {
         ...state,
         error: action.payload
+      }
+    case GET_PUBLIC_LISTS:
+      return {
+        ...state,
+        communityLists: [...action.payload]
       }
     default:
       return state;

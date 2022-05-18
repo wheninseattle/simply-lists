@@ -14,6 +14,7 @@ import {
   LIST_ERROR,
   ADD_LIST_ITEM,
   GET_LIST_ITEMS,
+  GET_PUBLIC_LISTS,
   UPDATE_LIST_ITEM,
   DELETE_LIST_ITEM,
   SET_CURRENT_LIST_ITEM,
@@ -23,11 +24,13 @@ import {
 const ListState = (props) => {
   const initialState = {
     lists: [],
+    communityLists: [],
     listItems: [],
     currentList: null,
     currentListItem: null,
     filtered: null,
     error: null,
+    loading: true,
   };
 
   // Initializing state and dispatch.
@@ -74,10 +77,14 @@ const ListState = (props) => {
 
   // Get All public Lists
 
-  const getAllLists = async () => {
+  const getPublicLists = async () => {
     try {
       const res = await axios.get("api/lists/all");
       console.table(res.data)
+      dispatch({
+        type: GET_PUBLIC_LISTS,
+        payload: res.data
+      })
     } catch (error) {
       dispatch({
         type: LIST_ERROR,
@@ -262,6 +269,8 @@ const ListState = (props) => {
         currentList: state.currentList,
         listItems: state.listItems,
         currentListItem: state.currentListItem,
+        communityLists: state.communityLists,
+        loading: state.loading,
         addList,
         getLists,
         clearLists,
@@ -275,7 +284,7 @@ const ListState = (props) => {
         clearCurrentListItem,
         updateListItem,
         deleteListItem,
-        getAllLists
+        getPublicLists
       }}
     >
       {props.children}
