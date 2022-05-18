@@ -170,7 +170,7 @@ hr {
 }
 
 .item-description{
- text-overflow:clip;
+ /* text-overflow:clip; */
  word-wrap: break-word;
  word-break: break-all;
  /* display: inline-block; */
@@ -178,7 +178,7 @@ hr {
  /* width: 80%; */
  font-size: .75rem;
  height: fit-content;
- max-height: 50px;
+ /* max-height: 50px; */
  color: var(--medium-color);
  line-height: 1rem;
 }
