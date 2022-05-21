@@ -45,12 +45,30 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+// @route    Get  api/lists/:id
+// @desc     Get single list
+// @access   Public
+router.get("/:id", auth, async (req, res) => {
+  try {
+      const list = await List.findById(req.params.id);
+      if (!list) return res.status(400).json({ msg: "List not found" });
+      // Make sure user owns list
+      // if (list.visibility != 'public' && list.user.toString() != req.user.id) {
+      //   return res.status(401).json({ msg: "Not authorized" });
+      // }
+    res.json(list);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route    Get  api/lists/all
 // @desc     Get all public lists
 // @access   Public
-router.get("/all",  async (req, res) => {
+router.get("/all", auth, async (req, res) => {
   try {
-    const lists = await List.find({ visibility: "public" }).sort({ date: -1 });
+    const lists = await List.find({ user: req.user.id }).sort({ date: -1 });
     res.json(lists);
   } catch (err) {
     console.error(err);

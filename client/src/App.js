@@ -1,11 +1,12 @@
 import "./App.css";
-import React, { Fragment } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { Children, Fragment } from "react";
+import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import Explore from "./components/pages/Explore";
 import Register from "./components/auth/Register";
+import Lists from "./components/list/Lists";
 import MyLists from "./components/pages/MyLists";
 import AuthState from "./context/auth/AuthState";
 import Login from "./components/auth/Login";
@@ -18,6 +19,12 @@ if(localStorage.token){
   setAuthToken(localStorage.token)
 }
 
+const Child = () => {
+  let {id} = useParams();
+  return (
+    <Lists/>
+  )
+}
 
 const App = () => {
   return (
@@ -36,6 +43,7 @@ const App = () => {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/mylists" element={<MyLists/>} />
+                  <Route path="/lists/:id" element={<Child/>}/>
                 </Routes>
               </div>
             </Fragment>

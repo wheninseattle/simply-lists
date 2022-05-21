@@ -20,7 +20,10 @@ app.get('/', (req,res) => res.json({msg:'Welcome to the Just Lists API...'}))
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/lists', require('./routes/lists'));
+app.use('/api/publicLists', require('./routes/publicLists'));
 app.use('/api/listItems', require('./routes/listItems'));
+app.use('/api/comments', require('./routes/comments'));
+
 
 const PORT = process.env.PORT || 5000;
 

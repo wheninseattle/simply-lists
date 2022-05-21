@@ -5,6 +5,7 @@ const ListPreview = (props) => {
   const { list, setCurrentList } = props;
   const listContext = useContext(ListContext);
   const onSetCurrent = () => {
+    console.table(list)
     listContext.setCurrentList(list);
     listContext.getListItems(list._id);
   }

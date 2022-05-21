@@ -74,7 +74,7 @@ const List = (props) => {
       {state.editList ? listHeaderEdit : listHeader}
       <div>
         <div id="item-options" className="flex-h" style={{ width: "100%" }}>
-          <button className="btn btn-icon" onClick={onEdit}>
+          <button  className="btn btn-icon" onClick={onEdit}>
             <i className="fa-solid fa-pen"></i>
           </button>
           <button className="btn btn-icon" onClick={onDelete}>

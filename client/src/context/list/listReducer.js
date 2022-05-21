@@ -3,6 +3,7 @@ import {
   DELETE_LIST,
   UPDATE_LIST,
   GET_LISTS,
+  GET_LIST,
   CLEAR_LISTS,
   SET_CURRENT_LIST,
   CLEAR_CURRENT_LIST,
@@ -30,6 +31,11 @@ export default (state, action) => {
         lists: [...action.payload],
         loading: false,
       };
+    case GET_LIST:
+      return {
+        ...state,
+        currentList: action.payload,
+      }
     case CLEAR_LISTS:
       return {
         ...state,

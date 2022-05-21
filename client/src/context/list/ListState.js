@@ -8,6 +8,7 @@ import {
   DELETE_LIST,
   UPDATE_LIST,
   GET_LISTS,
+  GET_LIST,
   CLEAR_LISTS,
   SET_CURRENT_LIST,
   CLEAR_CURRENT_LIST,
@@ -75,11 +76,30 @@ const ListState = (props) => {
     }
   };
 
+  //GET LIST
+  const getList = async (id) => {
+    try {
+      const res = await axios.get(`api/lists/${id}`);
+      dispatch({
+        type: GET_LIST,
+        payload: res.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.message,
+      });
+    }
+  };
+
   // Get All public Lists
 
   const getPublicLists = async () => {
     try {
-      const res = await axios.get("api/lists/all");
+      console.log('We got to here!')
+      const res = await axios.get("api/publicLists/all");
+      console.log('And then We got to here!')
+
       console.table(res.data)
       dispatch({
         type: GET_PUBLIC_LISTS,
@@ -273,6 +293,7 @@ const ListState = (props) => {
         loading: state.loading,
         addList,
         getLists,
+        getList,
         clearLists,
         setCurrentList,
         clearCurrentList,

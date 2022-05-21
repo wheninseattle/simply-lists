@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useContext } from "react";
+import {Link} from "react-router-dom";
 import List from "./List";
 import ListPreview from "./ListPreview";
 import ListForm from "./ListForm";
@@ -16,8 +17,15 @@ const Lists = (props) => {
   };
 
   useEffect(() => {
+    
     getLists();
   }, []);
+
+const onClick = (id) => {
+  console.log('Lets go!')
+  console.log(id)
+  window.open(`/${id}`)
+};
 
   if (lists) {
     if (lists.length && !currentList) {
@@ -28,6 +36,11 @@ const Lists = (props) => {
           {lists.map((list) => {
             return (
               <Fragment key={list._id}>
+               <br/>
+               {/* <button className="btn btn-primary" onClick={() => onClick(list._id)}>
+               Testing
+               </button> */}
+               <br/>
                 <ListPreview list={list} />
                 <br />
               </Fragment>
