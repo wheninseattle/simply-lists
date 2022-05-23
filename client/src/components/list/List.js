@@ -3,6 +3,8 @@ import ListItem from "../listItems/ListItem";
 import ItemForm from "../listItems/ItemForm";
 import ListContext from "../../context/list/listContext";
 import ListForm from "./ListForm";
+import CommentForm from "../comments/CommentForm";
+import Comments from "../../components/comments/Comments";
 
 const List = (props) => {
   const [state, setState] = useState({
@@ -99,11 +101,14 @@ const List = (props) => {
               return <ListItem key={item._id} onClick={onEdit} item={item} />;
             })}
       </ul>
+      
       <ItemForm
         addItem={props.addItem}
         listId={listId}
         listAuthor={listAuthor}
       />
+        <CommentForm/>
+        <Comments/>
     </div>
   );
 };

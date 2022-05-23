@@ -4,6 +4,7 @@ import List from "./List";
 import ListPreview from "./ListPreview";
 import ListForm from "./ListForm";
 import ListContext from "../../context/list/listContext";
+import CommentForm from "../comments/CommentForm";
 
 const Lists = (props) => {
   const listContext = useContext(ListContext);
