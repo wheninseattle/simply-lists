@@ -18,6 +18,14 @@ export const GET_LIST_ITEMS = 'GET_LIST_ITEMS';
 export const SET_CURRENT_LIST_ITEM = 'SET_CURRENT_LIST_ITEM';
 export const CLEAR_CURRENT_LIST_ITEM = 'CLEAR_CURRENT_LIST_ITEM';
 
+// Comments
+
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+export const GET_COMMENT = 'GET_COMMENT';
+
+
 // Public Lists
 export const GET_PUBLIC_LISTS = 'GET_PUBLIC_LISTS';
 

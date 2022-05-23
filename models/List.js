@@ -27,6 +27,10 @@ const ListSchema = mongoose.Schema({
       type: Array,
       required: false
   },
+  commentsEnabled: {
+    type: Boolean,
+    default: true
+  },
   date: {
     type: Date,
     default: Date.now,
