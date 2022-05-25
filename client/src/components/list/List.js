@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 import ListItem from "../listItems/ListItem";
 import ItemForm from "../listItems/ItemForm";
 import ListContext from "../../context/list/listContext";
@@ -23,7 +23,13 @@ const List = (props) => {
     setCurrentListItem,
     clearCurrentListItem,
     updateListItem,
+    getComments
   } = listContext;
+
+  // useEffect(()=>{
+    
+  //   getComments(currentList._id);
+  // })
 
   const {
     _id: listId,
@@ -56,6 +62,11 @@ const List = (props) => {
   const onDelete = () => {
     deleteList(currentList._id);
   };
+
+  const onLoadComments = () => {
+    getComments(currentList._id);
+  };
+
   const listHeader = (
     <Fragment>
       <div id="list-header" className="my-2">
@@ -109,6 +120,7 @@ const List = (props) => {
       />
         <CommentForm/>
         <Comments/>
+        <button className="btn-success" onClick={onLoadComments}>Load Comments</button>
     </div>
   );
 };

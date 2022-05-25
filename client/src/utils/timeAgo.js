@@ -2,13 +2,12 @@ export const timeAgo = (date) => {
   const originalDate = new Date(`${date}`).getTime();
   const currentDate = new Date().getTime();
   const timeDiff = Math.abs(originalDate - currentDate);
-  console.log(timeDiff);
   switch (true) {
     case timeDiff < 1000 * 60:
       return "Moments ago";
     case timeDiff < 1000 * 60 * 60:
-      let minutes = Math.floor(timeDiff/(1000*60));
-      return minutes === 1 ? '1 minute ago' : `${minutes} minutes ago`
+      let minutes = Math.floor(timeDiff / (1000 * 60));
+      return minutes === 1 ? "1 minute ago" : `${minutes} minutes ago`;
     case timeDiff < 1000 * 60 * 60 * 24:
       let hours = Math.floor(timeDiff / (1000 * 60 * 60));
       return hours === 1 ? "1 hour ago" : `${hours} hours ago`;
@@ -21,7 +20,6 @@ export const timeAgo = (date) => {
     case timeDiff > 1000 * 60 * 60 * 24 * 7 * 52:
       let years = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 7 * 52));
       return years === 1 ? "1 year ago" : `${years} years ago`;
-
     default:
       return "Ages ago";
   }

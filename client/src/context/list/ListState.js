@@ -20,6 +20,8 @@ import {
   DELETE_LIST_ITEM,
   SET_CURRENT_LIST_ITEM,
   CLEAR_CURRENT_LIST_ITEM,
+  ADD_COMMENT,
+  GET_COMMENTS,
 } from "../types";
 
 const ListState = (props) => {
@@ -27,8 +29,10 @@ const ListState = (props) => {
     lists: [],
     communityLists: [],
     listItems: [],
+    comments: [],
     currentList: null,
     currentListItem: null,
+    currentComment:null,
     filtered: null,
     error: null,
     loading: true,
@@ -279,10 +283,68 @@ const ListState = (props) => {
   };
 
   
-
   // Filter List Items
-
+  
   // Clear Filter
+  
+  //Commenting
+
+  // Add Comment
+  const addComment = async (comment) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      console.log('Trying to add');
+      console.log(comment.message);
+      console.log(comment.message);
+      const res = await axios.post('/api/comments', comment, config)
+      console.log('Got here')
+      dispatch({
+        type: ADD_COMMENT,
+        payload: res.data
+      })
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.message
+      })
+    }
+  }
+
+  // Get Comments
+  const getComments = async (listId) => {
+    console.log(`Getting Comments for list ${listId}`)
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    };
+    try { 
+      console.log('We are waiting for a response')
+      const res = await axios.get(`/api/comments/${listId}`)
+      console.log('We got a response')
+      console.table(res.data)
+      dispatch({
+        type: GET_COMMENTS,
+        payload: res.data
+      })
+    } catch (error) {
+      dispatch({
+        type:LIST_ERROR,
+        payload: error.response.msg
+      })
+    }
+  }
+
+  // Delete Comment
+  const deleteComment = () => {
+
+  }
+
+
 
   return (
     <ListContext.Provider
@@ -293,6 +355,7 @@ const ListState = (props) => {
         currentListItem: state.currentListItem,
         communityLists: state.communityLists,
         loading: state.loading,
+        comments: state.comments,
         addList,
         getLists,
         getList,
@@ -307,7 +370,10 @@ const ListState = (props) => {
         clearCurrentListItem,
         updateListItem,
         deleteListItem,
-        getPublicLists
+        getPublicLists,
+        addComment,
+        getComments,
+        deleteComment,
       }}
     >
       {props.children}

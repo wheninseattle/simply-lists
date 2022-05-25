@@ -1,4 +1,3 @@
-import { useReducer } from "react";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,

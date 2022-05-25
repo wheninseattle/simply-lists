@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
+const Populate = require('../utils/autoPopulate');
 
 const CommentSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
+        ref: "user"
     },
     username: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
+        ref: "user"
     },
     list: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "list"
+        ref: "lists"
     },
     message: {
         type: String,
@@ -20,5 +21,16 @@ const CommentSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
 })
+
+//Populate username and nest comments
+CommentSchema
+.pre('findOne', Populate('username'))
+.pre('find', Populate('username'))
+// .pre('findOne', Populate('comments'))
+// .pre('find', Populate('comments'))
+
+
+module.exports = mongoose.model('comment', CommentSchema);

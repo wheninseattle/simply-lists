@@ -14,6 +14,8 @@ import {
   CLEAR_CURRENT_LIST_ITEM,
   DELETE_LIST_ITEM,
   GET_PUBLIC_LISTS,
+  ADD_COMMENT,
+  GET_COMMENTS
 } from "../types";
 
 export default (state, action) => {
@@ -100,6 +102,16 @@ export default (state, action) => {
       return {
         ...state,
         communityLists: [...action.payload]
+      }
+    case ADD_COMMENT:
+      return {
+        ...state,
+        comments: [...state.comments, action.payload]
+      }
+    case GET_COMMENTS:
+      return{
+        ...state,
+        comments: [...action.payload]
       }
     default:
       return state;
