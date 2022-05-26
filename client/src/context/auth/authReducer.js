@@ -34,15 +34,12 @@ export default (state, action) => {
         error: action.payload,
       };
     case USER_LOADED:
-      const { name, username, email } = action.payload;
       return {
         ...state,
         isAuthenticated: true,
         user: {
           id: action.payload._id,
-          name,
-          username,
-          email,
+          username: action.payload.username
         },
       };
     case CLEAR_ERRORS:

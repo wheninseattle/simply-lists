@@ -9,6 +9,7 @@ import Comments from "../../components/comments/Comments";
 const List = (props) => {
   const [state, setState] = useState({
     editList: false,
+    showComments: false
   });
 
   const listContext = useContext(ListContext);
@@ -23,11 +24,11 @@ const List = (props) => {
     setCurrentListItem,
     clearCurrentListItem,
     updateListItem,
-    getComments
+    getComments,
   } = listContext;
 
   // useEffect(()=>{
-    
+
   //   getComments(currentList._id);
   // })
 
@@ -55,22 +56,33 @@ const List = (props) => {
     });
   };
 
-  const onEditItem = () => {
-
-  }
-
-  const onDelete = () => {
-    deleteList(currentList._id);
-  };
+  const onEditItem = () => {};
 
   const onLoadComments = () => {
     getComments(currentList._id);
   };
 
+  const onShowComments = () => {
+    setState({
+      ...state,
+      showComments: (!state.showComments)
+    })
+  }
+
+  useEffect(()=>{
+    getComments(currentList._id);
+  },[]);
+
   const listHeader = (
     <Fragment>
       <div id="list-header" className="my-2">
-        <h1>{listName}</h1>
+        <div className="flex-h" >
+          <h1>{listName}</h1>
+          { }
+          <button className="btn btn-icon" onClick={onEdit}>
+            <i className="fa-solid fa-pen"></i>
+          </button>
+        </div>
         <h3>A list by: {username}</h3>
         <p>{listDescription}</p>
       </div>
@@ -85,19 +97,6 @@ const List = (props) => {
   return (
     <div className="all-center">
       {state.editList ? listHeaderEdit : listHeader}
-      <div>
-        <div id="item-options" className="flex-h" style={{ width: "100%" }}>
-          <button  className="btn btn-icon" onClick={onEdit}>
-            <i className="fa-solid fa-pen"></i>
-          </button>
-          <button className="btn btn-icon" onClick={onDelete}>
-            <i className="fa-solid fa-circle-xmark"></i>
-          </button>
-          <button className="btn btn-icon">
-            <i className="fa-solid fa-comments"></i>
-          </button>
-        </div>
-      </div>
       <ul className="all-center">
         {currentListItem != null
           ? listItems.map((item) => {
@@ -112,15 +111,21 @@ const List = (props) => {
               return <ListItem key={item._id} onClick={onEdit} item={item} />;
             })}
       </ul>
-      
       <ItemForm
         addItem={props.addItem}
         listId={listId}
         listAuthor={listAuthor}
       />
-        <CommentForm/>
-        <Comments/>
-        <button className="btn-success" onClick={onLoadComments}>Load Comments</button>
+      <button className="btn btn-icon" onClick={onShowComments}>
+        <i className="fa-solid fa-comments"></i>
+      </button>
+      {state.showComments &&
+      
+      <Comments />
+      }
+      {/* <button className="btn-success" onClick={onLoadComments}>
+        Load Comments
+      </button> */}
     </div>
   );
 };

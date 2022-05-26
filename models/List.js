@@ -31,6 +31,8 @@ const ListSchema = mongoose.Schema({
     type: Boolean,
     default: true
   },
+  comments: [],
+  
   date: {
     type: Date,
     default: Date.now,

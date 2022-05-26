@@ -7,12 +7,16 @@ const CommentSchema = mongoose.Schema({
         ref: "user"
     },
     username: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
+        type: String,
+        required: true
     },
     list: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "lists"
+    },
+    listUser: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true
     },
     message: {
         type: String,

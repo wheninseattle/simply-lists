@@ -424,10 +424,10 @@ hr {
 .btn-icon{
   background-color: transparent;
   border: none;
-  color:var(--slate-gray) ;
-  padding: 0px;
-  margin: 0px;
-  font-size: .8rem;
+  color:var(--primary-color) ;
+  /* padding: 0px; */
+  /* margin: 0px; */
+  font-size: 1.25rem;
 }
 .btn-icon-vote{
   background-color: transparent;

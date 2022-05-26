@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import ListContext from "../../context/list/listContext";
+import AuthContext from "../../context/auth/authContext";
 
-const CommentForm = () => {
+const CommentForm = (props) => {
   // Initialize and Destructure List Context
   const listContext = useContext(ListContext);
   const { addComment, currentList } = listContext;
@@ -27,18 +28,23 @@ const CommentForm = () => {
     e.preventDefault();
     const comment = {
       listId: state.listId,
+      listUser: currentList.user,
       message: state.message,
+      username: props.currentUser.username,
     };
+    console.table(comment)
     addComment(comment);
+    setState({
+      ...state,
+      msg: null,
+      showCommentForm: false
+    })
   };
 
   return (
     <div className="my-1 p-1 add-card">
-      {state.showCommentForm ? (
-        <button className="btn-danger" onClick={onComment}>
-          Comment
-        </button>
-      ) : (
+    <button className="btn-primary btn" onClick={onComment}>Add Comment</button>
+      {state.showCommentForm && (
         <form className="form add-form py-1" onSubmit={onSubmit}>
           <textarea
             name="message"

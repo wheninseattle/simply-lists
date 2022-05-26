@@ -19,7 +19,7 @@ const ListForm = (props) => {
   
   // Initialize and destructure list context
   const listContext = useContext(ListContext);
-  const { addList, currentList, updateList } = listContext;
+  const { addList, currentList, updateList, deleteList } = listContext;
   
   // Initialize and destructure alert context
   const alertContext = useContext(AlertContext);
@@ -81,6 +81,11 @@ const ListForm = (props) => {
     state.existingList && props.cancelEdit();
     setState({ ...state, showForm: false });
   };
+
+  const onDelete = () => {
+    deleteList(currentList._id);
+  };
+
   const onToggleForm = () => {
     setState({ ...state, showForm: !state.showForm });
   };
@@ -109,9 +114,14 @@ const ListForm = (props) => {
             <button className="btn btn-primary" type="submit">
               {state.existingList ? "Update List" : "Create List"}
             </button>
-            <button onClick={onCancel} className="btn">
+            <button onClick={onCancel} className="btn btn-dark">
               Cancel
             </button>
+            {state.existingList && 
+            <button onClick={onDelete} className="btn btn-danger">
+              Delete List
+            </button>
+            }
           </form>
         </div>
       ) : (
