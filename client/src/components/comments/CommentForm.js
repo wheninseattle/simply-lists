@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ListContext from "../../context/list/listContext";
-import AuthContext from "../../context/auth/authContext";
 
 const CommentForm = (props) => {
   // Initialize and Destructure List Context
@@ -12,6 +11,7 @@ const CommentForm = (props) => {
     listId: currentList._id,
     message: null,
     showCommentForm: false,
+    parent: null,
   });
   const onComment = () => {
     setState({ ...state, showCommentForm: true });
@@ -26,24 +26,37 @@ const CommentForm = (props) => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    const comment = {
+    let comment = {
       listId: state.listId,
       listUser: currentList.user,
       message: state.message,
       username: props.currentUser.username,
     };
-    console.table(comment)
-    addComment(comment);
+    if(props.parent){
+      console.log('We are adding a replying')
+      addComment(comment,props.parent)
+    } else {
+      addComment(comment);
+    }
     setState({
       ...state,
       msg: null,
-      showCommentForm: false
-    })
+      showCommentForm: false,
+    });
   };
-
+  useEffect(() => {
+    props.parent &&
+      setState({
+        ...state,
+        showCommentForm: true,
+        parent: props.parent,
+      });
+  }, []);
   return (
     <div className="my-1 p-1 add-card">
-    <button className="btn-primary btn" onClick={onComment}>Add Comment</button>
+      <button className="btn-primary btn" onClick={onComment}>
+        Add Comment
+      </button>
       {state.showCommentForm && (
         <form className="form add-form py-1" onSubmit={onSubmit}>
           <textarea

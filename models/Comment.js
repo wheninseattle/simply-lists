@@ -26,15 +26,15 @@ const CommentSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
+    parents: []
 })
 
 //Populate username and nest comments
-CommentSchema
-.pre('findOne', Populate('username'))
-.pre('find', Populate('username'))
-// .pre('findOne', Populate('comments'))
-// .pre('find', Populate('comments'))
+// CommentSchema
+// .pre('findOne', Populate('username'))
+// .pre('find', Populate('username'))
+// // .pre('findOne', Populate('comments'))
+// // .pre('find', Populate('comments'))
 
 
 module.exports = mongoose.model('comment', CommentSchema);

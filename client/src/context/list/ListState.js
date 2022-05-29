@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+  import React, { useReducer } from "react";
 import ListContext from "./listContext";
 import listReducer from "./listReducer";
 import axios from "axios";
@@ -290,18 +290,22 @@ const ListState = (props) => {
   //Commenting
 
   // Add Comment
-  const addComment = async (comment) => {
+  const addComment = async (comment,parent) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
     try {
-      console.log('Trying to add');
-      console.log(comment.message);
-      console.log(comment.message);
-      const res = await axios.post('/api/comments', comment, config)
-      console.log('Got here')
+      let res;
+      if(parent){
+        console.log('ListState - there is a parent, so We are adding a reply')
+        console.log(`Making request to /api/comments/${parent._id}`)
+        res = await axios.post(`/api/comments/${parent._id}`, comment, config)
+      }else{
+        console.log('ListState - there is not a parent, so we are adding a comment')
+        res = await axios.post('/api/comments', comment, config)
+      }
       dispatch({
         type: ADD_COMMENT,
         payload: res.data
