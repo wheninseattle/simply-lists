@@ -26,7 +26,8 @@ const CommentSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    parents: []
+    parents: [],
+    children: []
 })
 
 //Populate username and nest comments
