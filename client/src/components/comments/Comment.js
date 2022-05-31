@@ -15,6 +15,7 @@ const Comment = ({ comment, currentUser }) => {
         key={comment._id}
         comment={childNode}
         className="comment-replies"
+        currentUser={currentUser}
       />
     );
   });
