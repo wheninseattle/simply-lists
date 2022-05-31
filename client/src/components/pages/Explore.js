@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import ListContext from "../../context/list/listContext";
 import Lists from "../../components/list/Lists"
 
@@ -8,13 +8,16 @@ const Explore = () => {
     const listContext = useContext(ListContext);
     const {getPublicLists,communityLists} = listContext;
 
-    const onClick = () => {
-        getPublicLists();
-    }
+    // const onClick = () => {
+    //     getPublicLists();
+    // }
+
+    useEffect(()=> {
+      getPublicLists();
+    }, [])
 
   return (
     <div className="all-center">
-        <button className="btn btn-primary" onClick={onClick}>Load Public Lists</button>
         {(communityLists.length) &&
         <Lists lists={communityLists}/>}
     </div>
