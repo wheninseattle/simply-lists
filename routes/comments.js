@@ -54,7 +54,9 @@ router.post("/:id", auth, async (req, res) => {
     });
     const savedReply = await newReply.save();
     const parent = await Comment.findById(req.params.id);
-    const parents = parent.parents;
+    parent.children.push(savedReply._id);
+    parent.save();
+    const parents = [...parent.parents];
     parents.push(savedReply._id);
     const updatedReply = await Comment.findByIdAndUpdate(savedReply._id,
       {parents: parents}
