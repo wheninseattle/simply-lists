@@ -3,7 +3,6 @@ import ListItem from "../listItems/ListItem";
 import ItemForm from "../listItems/ItemForm";
 import ListContext from "../../context/list/listContext";
 import ListForm from "./ListForm";
-import CommentForm from "../comments/CommentForm";
 import Comments from "../../components/comments/Comments";
 
 const List = (props) => {
@@ -116,16 +115,7 @@ const List = (props) => {
         listId={listId}
         listAuthor={listAuthor}
       />
-      <button className="btn btn-icon" onClick={onShowComments}>
-        <i className="fa-solid fa-comments"></i>
-      </button>
-      {state.showComments &&
-      
       <Comments />
-      }
-      {/* <button className="btn-success" onClick={onLoadComments}>
-        Load Comments
-      </button> */}
     </div>
   );
 };
