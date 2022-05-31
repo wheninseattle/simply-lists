@@ -203,7 +203,7 @@ hr {
 
 .add-card {
   /* flex-direction: column; */
-  width: 60%;
+  width: 80%;
   /* justify-content:center; */
   /* align-items: center; */
 }
@@ -318,8 +318,10 @@ textarea {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.btn-comment {
-  position: relative;
+.btn-comment,
+.btn-comments {
+  /* position: relative; */
+  justify-items: center;
   font-size: 1rem;
   margin: 0 auto;
   border: none;
@@ -333,6 +335,7 @@ textarea {
 }
 
 .btn-comment:hover,
+.btn-comments:hover,
 .btn-reply:hover {
   opacity: 0.8;
 }
@@ -427,6 +430,7 @@ textarea {
 .flex-h {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .self-left {
