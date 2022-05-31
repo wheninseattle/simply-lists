@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import ListContext from "../../context/list/listContext";
+import { IconAddComment } from "../icons/IconAddComment";
 
 const CommentForm = (props) => {
   // Initialize and Destructure List Context
@@ -32,9 +33,9 @@ const CommentForm = (props) => {
       message: state.message,
       username: props.currentUser.username,
     };
-    if(props.parent){
-      console.log('We are adding a replying')
-      addComment(comment,props.parent)
+    if (props.parent) {
+      console.log("We are adding a replying");
+      addComment(comment, props.parent);
     } else {
       addComment(comment);
     }
@@ -54,9 +55,10 @@ const CommentForm = (props) => {
   }, []);
   return (
     <div className="my-1 p-1 add-card">
-      <button className="btn-primary btn" onClick={onComment}>
-        Add Comment
-      </button>
+      {!state.parent && (
+        <IconAddComment className=" btn-comment" onClick={onComment} />
+      )}
+
       {state.showCommentForm && (
         <form className="form add-form py-1" onSubmit={onSubmit}>
           <textarea
@@ -64,14 +66,18 @@ const CommentForm = (props) => {
             id="message"
             rows="5"
             onChange={onChange}
-            placeholder={"Your comment here..."}
+            placeholder={
+              state.listId ? "Your reply here..." : "Your comment here..."
+            }
           ></textarea>
-          <button className="btn btn-primary" type="submit">
-            Comment
-          </button>
-          <button className="btn btn-danger" onClick={onCancel}>
-            Cancel
-          </button>
+          <div className="m-1">
+            <button className="btn btn-primary" type="submit">
+              Comment
+            </button>
+            <button className="btn btn-danger" onClick={onCancel}>
+              Cancel
+            </button>
+          </div>
         </form>
       )}
     </div>
