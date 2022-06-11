@@ -14,7 +14,7 @@ connectDB();
 // Init Middleware
 app.use(express.json({extended: false}))
 
-app.get('/', (req,res) => res.json({msg:'Welcome to the Just Lists API...'}))
+app.get('/', (req,res) => res.json({msg:'Welcome to the Simply Lists API...'}))
 
 // Define API routes
 app.use('/api/auth', require('./routes/auth'));

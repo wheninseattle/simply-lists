@@ -66,7 +66,7 @@ Navbar.propTypes = {
   icon: PropTypes.string,
 };
 Navbar.defaultProps = {
-  title: "Just Lists",
+  title: "Simply Lists",
   icon: "fa-solid fa-ellipsis-vertical",
 };
 
