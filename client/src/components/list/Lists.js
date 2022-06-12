@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useContext } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import List from "./List";
 import ListPreview from "./ListPreview";
 import ListForm from "./ListForm";
@@ -11,37 +11,26 @@ const Lists = (props) => {
   const { getLists, currentList, clearCurrentList } = listContext;
 
   let lists;
-  if(props.lists){
-    lists = props.lists
-  }else{
+  if (props.lists) {
+    lists = props.lists;
+  } else {
     lists = listContext.lists;
-  };
+  }
 
   useEffect(() => {
-    
     // getLists();
   }, []);
 
-const onClick = (id) => {
-  console.log('Lets go!')
-  console.log(id)
-  window.open(`/${id}`)
-};
 
   if (lists) {
     if (lists.length && !currentList) {
       return (
         <div className="all-center">
-          <h2>Lists...</h2>
-          <ListForm />
+          <h2 className="lists-header large">{props.listGroup}</h2>
+          {props.listGroup === "My Lists" && <ListForm />}
           {lists.map((list) => {
             return (
               <Fragment key={list._id}>
-               <br/>
-               {/* <button className="btn btn-primary" onClick={() => onClick(list._id)}>
-               Testing
-               </button> */}
-               <br/>
                 <ListPreview list={list} />
                 <br />
               </Fragment>
@@ -64,10 +53,12 @@ const onClick = (id) => {
         </div>
       );
     } else {
-      return <div className="all-center">
-      <h2>No lists yet! Let's make one!</h2>;
-      <ListForm />
-      </div>
+      return (
+        <div className="all-center">
+          <h2>No lists yet! Let's make one!</h2>;
+          <ListForm />
+        </div>
+      );
     }
   } else {
     return <h2>No lists yet! Let's make one!</h2>;
