@@ -56,19 +56,24 @@ const Comments = () => {
   };
   return (
     <div className="all-center">
-    <div className="flex-h ">
-      <IconComments className="btn-comments" onClick={onShowComments} commentCount={comments.length} />
-      {(comments.length>0)&&
-      
-      <pre> {`( ${comments.length} ) ${(comments.length>1)? 'Comments' : 'Comment'}`}</pre>
-
-      }
-
-    </div>
+      <div className="flex-h ">
+        <IconComments
+          className="btn-comments"
+          onClick={onShowComments}
+          commentCount={comments.length}
+        />
+        {comments.length > 0 && (
+          <pre>
+            {`( ${comments.length} ) ${
+              comments.length > 1 ? "Comments" : "Comment"
+            }`}
+          </pre>
+        )}
+      </div>
       {state.showComments && (
         <div className="comment-thread">
           {user && <CommentForm currentUser={user} />}
-          {comments.length &&
+          {comments.length > 0 &&
             buildCommentTree(comments).map((comment) => (
               <Comment key={comment._id} currentUser={user} comment={comment} />
             ))}
