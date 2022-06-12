@@ -80,14 +80,28 @@ hr {
 }
 
 .large {
-  font-size: 3rem;
+  font-size: 2.5rem;
+  font-weight: 300;
   line-height: 1.2;
   margin-bottom: 1rem;
+}
+
+.medium {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: .5rem;
 }
 
 .small {
   margin: 0rem;
   padding: 0;
+}
+
+.btn-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
 }
 
 .lead {
