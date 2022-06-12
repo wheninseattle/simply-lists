@@ -29,22 +29,22 @@ const AuthState = (props) => {
   // Load User
 
   const loadUser = async () => {
-    if(localStorage.token){
+    if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
-    try { 
-      const res = await axios.get("/api/auth")
+    try {
+      const res = await axios.get("/api/auth");
       dispatch({
         type: USER_LOADED,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (err) {
       dispatch({
         type: AUTH_ERROR,
         payload: err,
-      })
+      });
     }
-  }
+  };
 
   // Register User
   const register = async (formData) => {
@@ -54,7 +54,7 @@ const AuthState = (props) => {
       },
     };
     try {
-      const res = await axios.post("/api/users", formData,config);
+      const res = await axios.post("/api/users", formData, config);
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
@@ -76,35 +76,36 @@ const AuthState = (props) => {
       },
     };
     try {
-      const res = await axios.post("api/auth",formData,config);
+      const res = await axios.post("api/auth", formData, config);
+      console.table(res);
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: res.data
-      })
+        payload: res.data,
+      });
       loadUser();
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: err.data.msg
-      })
+        payload: error.response.data.msg,
+      });
     }
-  }
+  };
 
   // Logout
 
   const logout = () => {
     dispatch({
-      type: LOGOUT
-    })
-  }
+      type: LOGOUT,
+    });
+  };
 
   // Clear Errors
 
   const clearErrors = () => {
     dispatch({
-      type:CLEAR_ERRORS
-    })
-  }
+      type: CLEAR_ERRORS,
+    });
+  };
 
   // Context provider
 
@@ -120,7 +121,7 @@ const AuthState = (props) => {
         register,
         login,
         logout,
-        clearErrors
+        clearErrors,
       }}
     >
       {props.children}
