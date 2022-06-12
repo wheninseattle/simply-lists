@@ -20,7 +20,7 @@ const ListForm = (props) => {
   
   // Initialize and destructure list context
   const listContext = useContext(ListContext);
-  const { addList, currentList, updateList, deleteList } = listContext;
+  const { addList, currentList, updateList, deleteList, clearCurrentList } = listContext;
   
   // Initialize and destructure alert context
   const alertContext = useContext(AlertContext);
@@ -84,6 +84,8 @@ const ListForm = (props) => {
   };
 
   const onDelete = () => {
+    let listId = currentList._id;
+    clearCurrentList();
     deleteList(currentList._id);
   };
 
