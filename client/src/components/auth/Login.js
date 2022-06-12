@@ -34,23 +34,26 @@ const Login = (props) => {
       navigate("/");
     }
 
-    if (error === "Invalid Credentials") {
+    if (error === "Invalid credentials") {
       setAlert(error, "danger");
-      clearErrors();
+      // clearErrors(); @todo
     }
     // eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
+
   const onSubmit = (e) => {
-    console.log("Got Here");
     e.preventDefault();
-    if (email === "" || password === "") {
-      console.log("Testing 2");
-      setAlert("Make sure to fill in both email and password", "danger");
-    } else {
-      login({
-        email,
-        password
-      })
+    try {
+      if (email === "" || password === "") {
+        setAlert("Make sure to fill in both email and password", "danger");
+      } else {
+        login({
+          email,
+          password
+        })
+      }
+    } catch (error) {
+      setAlert("Error loging in. Please check your info and try again","danger");
     }
   };
 
