@@ -5,11 +5,12 @@ import ListContext from '../../context/list/listContext';
 const MyLists = () => {
     // Initialize and destructure context
     const listContext = useContext(ListContext);
-    const { getLists, lists } = listContext;
+    const { getLists, lists, clearCurrentList } = listContext;
     
     // Retrieve public lists
     useEffect(() => {
       getLists();
+      clearCurrentList();
     }, []);
   return (
     <Fragment>

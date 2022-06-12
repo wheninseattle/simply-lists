@@ -5,11 +5,12 @@ import Lists from "../../components/list/Lists";
 const Explore = () => {
   // Initialize and destructure context
   const listContext = useContext(ListContext);
-  const { getPublicLists, communityLists } = listContext;
+  const { getPublicLists, communityLists,clearCurrentList } = listContext;
   
   // Retrieve public lists
   useEffect(() => {
     getPublicLists();
+    clearCurrentList();
   }, []);
 
   return (
