@@ -55,13 +55,13 @@ const Lists = (props) => {
     } else {
       return (
         <div className="all-center">
-          <h2>No lists yet! Let's make one!</h2>;
+          <h2>Let's make your first list!</h2>;
           <ListForm />
         </div>
       );
     }
   } else {
-    return <h2>No lists yet! Let's make one!</h2>;
+    return <h2>Let's make your first list!</h2>;
   }
 };
 export default Lists;
