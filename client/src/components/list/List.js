@@ -4,11 +4,13 @@ import ItemForm from "../listItems/ItemForm";
 import ListContext from "../../context/list/listContext";
 import ListForm from "./ListForm";
 import Comments from "../../components/comments/Comments";
+import AuthContext from "../../context/auth/authContext";
+import { IconEditList } from "../icons/IconEditList";
 
 const List = (props) => {
   const [state, setState] = useState({
     editList: false,
-    showComments: false
+    showComments: false,
   });
 
   const listContext = useContext(ListContext);
@@ -26,10 +28,7 @@ const List = (props) => {
     getComments,
   } = listContext;
 
-  // useEffect(()=>{
-
-  //   getComments(currentList._id);
-  // })
+  const authContext = useContext(AuthContext)
 
   const {
     _id: listId,
@@ -68,6 +67,12 @@ const List = (props) => {
     })
   }
 
+  const isListOwner = () => {
+    const currentUser = authContext.user.id || null;
+    const listAuthor = props.list.user;
+    return (currentUser == listAuthor)
+  }
+
   useEffect(()=>{
     getComments(currentList._id);
   },[]);
@@ -77,10 +82,11 @@ const List = (props) => {
       <div id="list-header" className="my-2">
         <div className="flex-h" >
           <h1>{listName}</h1>
-          { }
+          { isListOwner() &&
           <button className="btn btn-icon" onClick={onEdit}>
-            <i className="fa-solid fa-pen"></i>
+            <IconEditList/>
           </button>
+          }
         </div>
         <h3>A list by: {username}</h3>
         <p>{listDescription}</p>
