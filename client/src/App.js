@@ -55,6 +55,3 @@ const App = () => {
 };
 
 export default App;
-
-// <Route path='/register' element={<Register/>}/>
-// <Route path='/Login' element={<Login/>}/>
