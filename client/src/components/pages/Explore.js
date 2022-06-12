@@ -14,7 +14,7 @@ const Explore = () => {
 
   return (
     <div className="all-center">
-      {communityLists.length && <Lists lists={communityLists} />}
+      {communityLists.length && <Lists listGroup='Community Lists' lists={communityLists}/>}
     </div>
   );
 };

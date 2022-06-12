@@ -13,7 +13,7 @@ const MyLists = () => {
     }, []);
   return (
     <Fragment>
-        <Lists/>
+        <Lists listGroup='My Lists'/>
     </Fragment>
   )
 }
