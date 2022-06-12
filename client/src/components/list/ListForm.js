@@ -15,17 +15,18 @@ const ListForm = (props) => {
     showForm: props.editExisting ? true : false,
     existingList: props.editExisting ? true : false,
   });
-  
+
   const { id, name, description, username, showForm } = state;
-  
+
   // Initialize and destructure list context
   const listContext = useContext(ListContext);
-  const { addList, currentList, updateList, deleteList, clearCurrentList } = listContext;
-  
+  const { addList, currentList, updateList, deleteList, clearCurrentList } =
+    listContext;
+
   // Initialize and destructure alert context
   const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
-  
+
   const authContext = useContext(AuthContext);
 
   // If editing existing list, load existing into component state
@@ -58,9 +59,9 @@ const ListForm = (props) => {
         const listOut = {
           name: name,
           description: description,
-          username: authContext.user.username
+          username: authContext.user.username,
         };
-        console.table(listOut)
+        console.table(listOut);
         addList(listOut);
       }
       //Reset state
@@ -120,16 +121,16 @@ const ListForm = (props) => {
             <button onClick={onCancel} className="btn btn-dark">
               Cancel
             </button>
-            {state.existingList && 
-            <button onClick={onDelete} className="btn btn-danger">
-              Delete List
-            </button>
-            }
+            {state.existingList && (
+              <button onClick={onDelete} className="btn btn-danger">
+                Delete List
+              </button>
+            )}
           </form>
         </div>
       ) : (
         <button className="btn btn-icon" onClick={onToggleForm}>
-        <IconAddList onClick={onToggleForm} className={"btn-comment"}/>
+          <IconAddList onClick={onToggleForm} />
         </button>
       )}
     </Fragment>
