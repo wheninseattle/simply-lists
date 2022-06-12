@@ -1,5 +1,6 @@
 import React,{useContext} from "react";
 import ListContext from "../../context/list/listContext";
+import { timeAgo } from "../../utils/timeAgo";
 
 const ListPreview = (props) => {
   const { list, setCurrentList } = props;
@@ -12,9 +13,9 @@ const ListPreview = (props) => {
   return (
     <div>
       <button className="btn" onClick={onSetCurrent}>
-        <h2>{list.name}</h2>
-        <p>{list.username}</p>
-        <p>{list.description}</p>
+        <h3 className="medium">{list.name}</h3>
+        <pre>{list.username} | {timeAgo(list.date)} </pre>
+        {/* <p>{list.description}</p> */}
       </button>
     </div>
   );
