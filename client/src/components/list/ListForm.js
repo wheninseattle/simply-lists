@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, Fragment } from "react";
 import ListContext from "../../context/list/listContext";
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
+import { IconAddList } from "../icons/IconAddList";
 
 const ListForm = (props) => {
   //Initialize and destructure component level state
@@ -125,8 +126,8 @@ const ListForm = (props) => {
           </form>
         </div>
       ) : (
-        <button className="btn btn-primary" onClick={onToggleForm}>
-          <i className="fa-solid fa-plus"></i>
+        <button className="btn btn-icon" onClick={onToggleForm}>
+        <IconAddList onClick={onToggleForm} className={"btn-comment"}/>
         </button>
       )}
     </Fragment>

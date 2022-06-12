@@ -16,19 +16,12 @@ const List = (props) => {
   const listContext = useContext(ListContext);
   const {
     currentList,
-    setCurrentList,
-    clearCurrentList,
-    updateList,
-    deleteList,
     listItems,
     currentListItem,
-    setCurrentListItem,
-    clearCurrentListItem,
-    updateListItem,
     getComments,
   } = listContext;
 
-  const authContext = useContext(AuthContext)
+  const authContext = useContext(AuthContext);
 
   const {
     _id: listId,
@@ -47,7 +40,6 @@ const List = (props) => {
   };
 
   const cancelEdit = () => {
-    console.log("Canceling Edit...");
     setState({
       ...state,
       editList: false,
@@ -63,30 +55,30 @@ const List = (props) => {
   const onShowComments = () => {
     setState({
       ...state,
-      showComments: (!state.showComments)
-    })
-  }
+      showComments: !state.showComments,
+    });
+  };
 
   const isListOwner = () => {
     const currentUser = authContext.user.id || null;
     const listAuthor = props.list.user;
-    return (currentUser == listAuthor)
-  }
+    return currentUser == listAuthor;
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getComments(currentList._id);
-  },[]);
+  }, []);
 
   const listHeader = (
     <Fragment>
       <div id="list-header" className="my-2">
-        <div className="flex-h" >
+        <div className="flex-h">
           <h1>{listName}</h1>
-          { isListOwner() &&
-          <button className="btn btn-icon" onClick={onEdit}>
-            <IconEditList/>
-          </button>
-          }
+          {isListOwner() && (
+            <button className="btn btn-icon" onClick={onEdit}>
+              <IconEditList />
+            </button>
+          )}
         </div>
         <h3>A list by: {username}</h3>
         <p>{listDescription}</p>
