@@ -20,17 +20,6 @@ const ListItem = (props) => {
     description: "",
   });
 
-  // const onEdit = (e) => {
-  //   setEditItem({
-  //     ...editItem,
-  //     _id,
-  //     name,
-  //     description,
-  //     editItem: !editItem.editItem,
-  //   });
-  //   console.log(name);
-  // };
-
   const onChange = (e) => {
     setEditItem({ ...editItem, [e.target.name]: e.target.value });
   };
@@ -47,13 +36,10 @@ const ListItem = (props) => {
   };
 
   const onDelete = (e) => {
-    console.log(`ListId: ${list}`);
-    console.log(`ItemId: ${_id}`);
     props.deleteItem(list, _id);
   };
 
   const onEdit = ()=> {
-    console.log("editing!")
     setCurrentListItem(props.item);
   }
 
