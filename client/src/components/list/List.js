@@ -108,11 +108,13 @@ const List = (props) => {
               return <ListItem key={item._id} onClick={onEdit} item={item} />;
             })}
       </ul>
-      <ItemForm
-        addItem={props.addItem}
-        listId={listId}
-        listAuthor={listAuthor}
-      />
+      {isListOwner() && (
+        <ItemForm
+          addItem={props.addItem}
+          listId={listId}
+          listAuthor={listAuthor}
+        />
+      )}
       <Comments />
     </div>
   );
