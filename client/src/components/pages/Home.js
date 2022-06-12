@@ -16,7 +16,6 @@ const Home = () => {
   useEffect(() => {
     if (localStorage.token) {
       loadUser();
-      // getAllLists();
     }
   }, []);
 
