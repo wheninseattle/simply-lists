@@ -14,12 +14,7 @@ const List = (props) => {
   });
 
   const listContext = useContext(ListContext);
-  const {
-    currentList,
-    listItems,
-    currentListItem,
-    getComments,
-  } = listContext;
+  const { currentList, listItems, currentListItem, getComments } = listContext;
 
   const authContext = useContext(AuthContext);
 
@@ -73,7 +68,7 @@ const List = (props) => {
     <Fragment>
       <div id="list-header" className="my-2">
         <div className="flex-h">
-          <h1>{listName}</h1>
+          <h1 className="medium">{listName}</h1>
           {isListOwner() && (
             <button className="btn btn-icon" onClick={onEdit}>
               <IconEditList />
@@ -92,7 +87,7 @@ const List = (props) => {
   );
 
   return (
-    <div className="all-center">
+    <div className="all-center list">
       {state.editList ? listHeaderEdit : listHeader}
       <ul className="all-center">
         {currentListItem != null
