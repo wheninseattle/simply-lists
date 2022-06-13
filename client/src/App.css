@@ -447,7 +447,9 @@ textarea {
 .flex-h {
   display: flex;
   flex-direction: row;
+  align-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .self-left {
@@ -568,8 +570,8 @@ textarea {
   background-color: transparent;
   border: none;
   color: var(--primary-color);
-  /* padding: 0px; */
-  /* margin: 0px; */
+  padding: 0px;
+  margin: 0px;
   font-size: 1.25rem;
 }
 
