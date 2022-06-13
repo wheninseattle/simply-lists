@@ -31,7 +31,7 @@ const Login = (props) => {
   useEffect(() => {
     //Redirect if already authenticated
     if (isAuthenticated) {
-      navigate("/");
+      navigate("/mylists");
     }
 
     if (error === "Invalid credentials") {
