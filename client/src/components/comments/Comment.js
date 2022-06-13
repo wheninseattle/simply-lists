@@ -5,7 +5,7 @@ import { IconReply } from "../icons/IconReply";
 
 const Comment = ({ comment, currentUser }) => {
   const [state, setState] = useState({
-    showReply: false,
+    showReplyForm: false,
   });
 
   const nestedComments = (comment.childNodes || []).map((childNode) => {
@@ -23,7 +23,7 @@ const Comment = ({ comment, currentUser }) => {
   const onReply = () => {
     setState({
       ...state,
-      showReply: !state.showReply,
+      showReplyForm: !state.showReplyForm,
     });
   };
 
@@ -41,13 +41,19 @@ const Comment = ({ comment, currentUser }) => {
         </div>
       </div>
       <div className="comment-body"></div>
-      
+
       <p>{message}</p>
-      <div>
-        <IconReply className="btn-reply" onClick={onReply} />
-      </div>
-      {state.showReply && (
-        <CommentForm parent={comment} currentUser={currentUser} />
+      {currentUser !== null && (
+        <div>
+          <IconReply className="btn-reply" onClick={onReply} />
+        </div>
+      )}
+      {state.showReplyForm && (
+        <CommentForm
+          parent={comment}
+          isReply={true}
+          currentUser={currentUser}
+        />
       )}
       <div>{nestedComments}</div>
     </div>
