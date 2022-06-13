@@ -14,17 +14,20 @@ const CommentForm = (props) => {
     showCommentForm: false,
     parent: null,
   });
+
   const onComment = () => {
     setState({ ...state, showCommentForm: true });
   };
+
   const onChange = (e) => {
     e.preventDefault();
     setState({ ...state, [e.target.name]: e.target.value });
   };
+
   const onCancel = () => {
     setState({ ...state, message: null, showCommentForm: false });
-    console.log("Canceling");
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     let comment = {
@@ -34,7 +37,6 @@ const CommentForm = (props) => {
       username: props.currentUser.username,
     };
     if (props.parent) {
-      console.log("We are adding a replying");
       addComment(comment, props.parent);
     } else {
       addComment(comment);
@@ -53,12 +55,14 @@ const CommentForm = (props) => {
         parent: props.parent,
       });
   }, []);
+
   return (
     <div className="my-1 p-1 add-card">
-      {!state.parent && (
-        <IconAddComment className=" btn-comment" onClick={onComment} />
-      )}
-
+      {(props.isReply===false) &&
+        <button className="btn btn-icon" onClick={onComment}>
+          <IconAddComment className=" btn-comment"/>
+        </button>
+      }
       {state.showCommentForm && (
         <form className="form add-form py-1" onSubmit={onSubmit}>
           <textarea
