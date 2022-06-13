@@ -1,10 +1,8 @@
 import React, { Fragment, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 import List from "./List";
 import ListPreview from "./ListPreview";
 import ListForm from "./ListForm";
 import ListContext from "../../context/list/listContext";
-import CommentForm from "../comments/CommentForm";
 
 const Lists = (props) => {
   const listContext = useContext(ListContext);
@@ -16,11 +14,9 @@ const Lists = (props) => {
   } else {
     lists = listContext.lists;
   }
-
   useEffect(() => {
     // getLists();
   }, []);
-
 
   if (lists) {
     if (lists.length && !currentList) {
@@ -55,7 +51,7 @@ const Lists = (props) => {
     } else {
       return (
         <div className="all-center">
-          <h2>Let's make your first list!</h2>;
+          <h2>Let's make your first list!</h2>
           <ListForm />
         </div>
       );
