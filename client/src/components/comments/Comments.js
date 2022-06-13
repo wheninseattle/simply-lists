@@ -18,7 +18,6 @@ const Comments = () => {
   const [state, setState] = useState({
     showComments: false,
   });
-
   const buildCommentTree = (comments = []) => {
     // Sort comments by length of parents array
     // so root comments are passed to tree last
@@ -72,7 +71,7 @@ const Comments = () => {
       </div>
       {state.showComments && (
         <div className="comment-thread">
-          {user && <CommentForm currentUser={user} />}
+          {user && <CommentForm isReply={false} currentUser={user} />}
           {comments.length > 0 &&
             buildCommentTree(comments).map((comment) => (
               <Comment key={comment._id} currentUser={user} comment={comment} />
