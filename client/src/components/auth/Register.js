@@ -26,17 +26,22 @@ const Register = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if(name === '' || username=== '' || email === '' || password === ''){
       setAlert('Please include all fields','danger')
     } else {
-      register({
-        name,
-        username,
-        email,
-        password
-      })
+      try {
+        register({
+          name,
+          username,
+          email,
+          password
+        })
+        navigate('/mylists')
+      } catch (error) {
+        console.log(error)
+      }
     }
   };
   // Initialize useNavigate
@@ -45,7 +50,7 @@ const Register = () => {
   useEffect(() => {
     //Redirect if already authenticated
     if (isAuthenticated) {
-      navigate("/");
+      navigate("/mylists");
     }
   },[]);
 
