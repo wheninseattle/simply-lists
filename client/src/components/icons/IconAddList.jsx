@@ -1,4 +1,3 @@
-import { propertiesParser } from "config/parser";
 import React from "react";
 import styled from "styled-components";
 import Icon from "./Icon";
@@ -9,9 +8,9 @@ const Svg = styled(Icon)`
   color: var(--primary-color);
 `;
 
-export const IconAddList = ({ className, onClick }) => {
+export const IconAddList = ({className}) => {
   return (
-    <div className={className} onClick={onClick}>
+    <div className={className}>
       <Svg
         // className={className}
         xmlns="http://www.w3.org/2000/svg"

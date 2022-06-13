@@ -1,17 +1,16 @@
-import { propertiesParser } from "config/parser";
 import React from "react";
 import styled from "styled-components";
 import Icon from "./Icon";
 
 const Svg = styled(Icon)`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   color: var(--primary-color);
 `;
 
-export const IconEditList = ({ className, onClick }) => {
+export const IconEditList = ({className}) => {
   return (
-    <div className={className} onClick={onClick}>
+    <div className={className}>
       <Svg
         // className={className}
         xmlns="http://www.w3.org/2000/svg"
