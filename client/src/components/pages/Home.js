@@ -3,6 +3,7 @@ import Lists from "../list/Lists";
 import AuthContext from "../../context/auth/authContext";
 import ListContext from "../../context/list/listContext";
 import Guest from "./Guest";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 
@@ -10,20 +11,22 @@ const Home = () => {
   const { loadUser,isAuthenticated } = authContext;
 
   const listContext = useContext(ListContext);
-
   // const { getAllLists } = listContext;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.token) {
       loadUser();
     }
   }, []);
+  
+  if(isAuthenticated){
+    navigate('/mylists')
+  }
 
   return (
     <div className="container">
-      {isAuthenticated ? 
-      <Lists/> :
-      <Guest/>}
+      <Guest/>
     </div>
   );
 };
