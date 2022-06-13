@@ -9,12 +9,14 @@ const MyLists = () => {
     
     // Retrieve public lists
     useEffect(() => {
-      getLists();
+      const myLists = getLists();
+      console.table(myLists)
       clearCurrentList();
     }, []);
+
   return (
     <Fragment>
-        <Lists listGroup='My Lists'/>
+        <Lists listGroup='My Lists' lists={lists}/>
     </Fragment>
   )
 }
