@@ -6,11 +6,11 @@ import ListForm from "./ListForm";
 import Comments from "../../components/comments/Comments";
 import AuthContext from "../../context/auth/authContext";
 import { IconEditList } from "../icons/IconEditList";
+import { timeAgo } from "../../utils/timeAgo";
 
 const List = (props) => {
   const [state, setState] = useState({
     editList: false,
-    showComments: false,
   });
 
   const listContext = useContext(ListContext);
@@ -23,7 +23,6 @@ const List = (props) => {
     user: listAuthor,
     name: listName,
     description: listDescription,
-    listItems: items,
     username,
   } = currentList;
 
@@ -40,24 +39,17 @@ const List = (props) => {
       editList: false,
     });
   };
-
-  const onEditItem = () => {};
-
   const onLoadComments = () => {
     getComments(currentList._id);
   };
 
-  const onShowComments = () => {
-    setState({
-      ...state,
-      showComments: !state.showComments,
-    });
-  };
-
   const isListOwner = () => {
-    const currentUser = authContext.user.id || null;
+    let currentUser = null;
+    if (authContext.isAuthenticated) {
+      currentUser = authContext.user.id;
+    }
     const listAuthor = props.list.user;
-    return currentUser == listAuthor;
+    return currentUser === listAuthor;
   };
 
   useEffect(() => {
@@ -67,15 +59,19 @@ const List = (props) => {
   const listHeader = (
     <Fragment>
       <div id="list-header" className="my-2">
+        <h1 className="medium">{listName}</h1>
         <div className="flex-h">
-          <h1 className="medium">{listName}</h1>
-          {isListOwner() && (
-            <button className="btn btn-icon" onClick={onEdit}>
-              <IconEditList />
-            </button>
-          )}
+          <h3>
+            A list by: {username} |{" "}
+            {isListOwner() ? (
+              <button className="btn btn-icon" onClick={onEdit}>
+                <IconEditList className={"btn-icon"} />
+              </button>
+            ) : (
+              timeAgo(currentList.date)
+            )}
+          </h3>
         </div>
-        <h3>A list by: {username}</h3>
         <p>{listDescription}</p>
       </div>
     </Fragment>
