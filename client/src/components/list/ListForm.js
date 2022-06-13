@@ -7,16 +7,14 @@ import { IconAddList } from "../icons/IconAddList";
 const ListForm = (props) => {
   //Initialize and destructure component level state
   const [state, setState] = useState({
-    id: "",
     name: "",
     description: "",
     user: "",
-    username: "",
     showForm: props.editExisting ? true : false,
     existingList: props.editExisting ? true : false,
   });
 
-  const { id, name, description, username, showForm } = state;
+  const {name, description, showForm } = state;
 
   // Initialize and destructure list context
   const listContext = useContext(ListContext);
@@ -49,7 +47,7 @@ const ListForm = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (name != "" && description != "") {
+    if (name !== "" && description !== "") {
       if (state.existingList) {
         //If updating list
         updateList(state);
@@ -85,7 +83,6 @@ const ListForm = (props) => {
   };
 
   const onDelete = () => {
-    let listId = currentList._id;
     clearCurrentList();
     deleteList(currentList._id);
   };
@@ -130,7 +127,7 @@ const ListForm = (props) => {
         </div>
       ) : (
         <button className="btn btn-icon" onClick={onToggleForm}>
-          <IconAddList onClick={onToggleForm} />
+          <IconAddList className={"btn-icon"} onClick={onToggleForm} />
         </button>
       )}
     </Fragment>
