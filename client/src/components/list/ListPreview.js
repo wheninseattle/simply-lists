@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import ListContext from "../../context/list/listContext";
 import { timeAgo } from "../../utils/timeAgo";
 
@@ -6,17 +6,22 @@ const ListPreview = (props) => {
   const { list, setCurrentList } = props;
   const listContext = useContext(ListContext);
   const onSetCurrent = () => {
-    console.table(list)
+    console.table(list);
     listContext.setCurrentList(list);
     listContext.getListItems(list._id);
-  }
+  };
   return (
-    <div>
-      <button className="btn" onClick={onSetCurrent}>
-        <h3 className="medium">{list.name}</h3>
-        <pre>{list.username} | {timeAgo(list.date)} </pre>
-        {/* <p>{list.description}</p> */}
-      </button>
+    <div className="preview-card" onClick={onSetCurrent}>
+      <div className="preview-header">
+        <h3 className="preview-title">{list.name}</h3>
+        <pre className="preview-list-details">
+          <span className="preview-user">{list.username}</span>{" "}|{" "}
+          {timeAgo(list.date)}{" "}
+        </pre>
+      </div>
+      <div className="preview-description">
+        <p>{list.description}</p>
+      </div>
     </div>
   );
 };

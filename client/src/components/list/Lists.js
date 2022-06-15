@@ -23,15 +23,16 @@ const Lists = (props) => {
       return (
         <div className="all-center">
           <h2 className="lists-header large">{props.listGroup}</h2>
-          {props.listGroup === "My Lists" && <ListForm />}
-          {lists.map((list) => {
-            return (
-              <Fragment key={list._id}>
-                <ListPreview list={list} />
-                <br />
-              </Fragment>
-            );
-          })}
+          <div className="lists-container">
+            {props.listGroup === "My Lists" && <ListForm />}
+            {lists.map((list) => {
+              return (
+                <Fragment key={list._id}>
+                  <ListPreview list={list} />
+                </Fragment>
+              );
+            })}
+          </div>
         </div>
       );
     } else if (currentList) {
