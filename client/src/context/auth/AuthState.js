@@ -25,7 +25,7 @@ const AuthState = (props) => {
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
-
+ 
   // Load User
 
   const loadUser = async () => {
